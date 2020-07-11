@@ -1,70 +1,43 @@
 ---
 templateKey: index-page
-title: Great coffee with a conscience
-image: /img/home-jumbotron.jpg
-heading: Great coffee with a conscience
-subheading: Support sustainable farming while enjoying a cup
-mainpitch:
-  title: Why Kaldi
-  description: >
-    Kaldi is the coffee store for everyone who believes that great coffee
-    shouldn't just taste good, it should do good too. We source all of our beans
-    directly from small scale sustainable farmers and make sure part of the
-    profits are reinvested in their communities.
-description: >-
-  Kaldi is the ultimate spot for coffee lovers who want to learn about their
-  java’s origin and support the farmers that grew it. We take coffee production,
-  roasting and brewing seriously and we’re glad to pass that knowledge to
-  anyone.
-intro:
+welcomeSection:
+  message: Opprett depositum-konto der du selv ønsker !
+  videoUrl: https://www.youtube.com/embed/5rDdOhjSBoM?feature=oembed&start&end&wmode=opaque&loop=0&controls=1&mute=0&rel=0&modestbranding=0
   blurbs:
-    - image: /img/coffee.png
+    - image: /img/paper-plane.png
+      text: Det har aldri vært så enkelt at opprette en depositumskonto
+    - image: /img/man-balance.png
       text: >
-        We sell green and roasted coffee beans that are sourced directly from
-        independent farmers and farm cooperatives. We’re proud to offer a
-        variety of coffee beans grown with great care for the environment and
-        local communities. Check our post or contact us directly for current
-        availability.
-    - image: /img/coffee-gear.png
+        Effektiviser opprettelsen av depositumkonto på en smidig 1-2-3 prosess og gjør det til den prisen du ønsker
+    - image: /img/hand-growth.png
       text: >
-        We offer a small, but carefully curated selection of brewing gear and
-        tools for every taste and experience level. No matter if you roast your
-        own beans or just bought your first french press, you’ll find a gadget
-        to fall in love with in our shop.
-    - image: /img/tutorials.png
+        Opprett depositumkonto og få 45 min gratis konsultasjon om depositumloven dersom behovet oppstår
+    - image: /img/pc-screen.png
       text: >
-        Love a great cup of coffee, but never knew how to make one? Bought a
-        fancy new Chemex but have no clue how to use it? Don't worry, we’re here
-        to help. You can schedule a custom 1-on-1 consultation with our baristas
-        to learn anything you want to know about coffee roasting and brewing.
-        Email us or call the store for details.
-    - image: /img/meeting-space.png
-      text: >
-        We believe that good coffee has the power to bring people together.
-        That’s why we decided to turn a corner of our shop into a cozy meeting
-        space where you can hang out with fellow coffee lovers and learn about
-        coffee making techniques. All of the artwork on display there is for
-        sale. The full price you pay goes to the artist.
-  heading: What we offer
-  description: >
-    Kaldi is the ultimate spot for coffee lovers who want to learn about their
-    java’s origin and support the farmers that grew it. We take coffee
-    production, roasting and brewing seriously and we’re glad to pass that
-    knowledge to anyone. This is an edit via identity...
-main:
-  heading: Great coffee with no compromises
-  description: >
-    We hold our coffee to the highest standards from the shrub to the cup.
-    That’s why we’re meticulous and transparent about each step of the coffee’s
-    journey. We personally visit each farm to make sure the conditions are
-    optimal for the plants, farmers and the local environment.
-  image1:
-    alt: A close-up of a paper filter filled with ground coffee
-    image: /img/products-grid3.jpg
-  image2:
-    alt: A green cup of a coffee on a wooden table
-    image: /img/products-grid2.jpg
-  image3:
-    alt: Coffee beans
-    image: /img/products-grid1.jpg
+        Last ned rapporter og bestem om du vil rapportere det videre via oss for enda flere forenklinger
+customerStories:
+  title: Erfaringer
+  feedbacks:
+    - author: Anders fosshaug
+      content: "Vi er godt fornøyde"
+    - author: Sam
+      content: "So far so good"
+    - author: Roald Mortensen
+      content: "Virker bra og solid. Fikk tilbake hele depositum med renter"
+    - author: Sara Lindskog
+      content: >
+        "Etter å ha testet det to ggr og bruk mindre penger på opprettelse av depositumkonto så er jeg fornøyd"
+  keyNumbers:
+    - number: 1852
+      description: Antall depositumkonto registrert via deppo​
+    - number: 128
+      description: Antall skattemeldinger rapportert via deppo
+callToAction:
+  header: Bli med på reisen for å forenkle hverdagen din!
+  content: >
+    Med mål om å hjelpe så mange mennesker som mulig, stiller vi opp og forenkler hverdagen til utleiere. Vennligst logg på for å starte prosess eller kontakt oss for mer informasjon.
+  image: /img/money-workers.png
+  soMeList:
+    - Facebook
+    - Twitter
 ---
