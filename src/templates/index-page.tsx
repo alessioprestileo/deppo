@@ -16,13 +16,13 @@ export const pageQuery = graphql`
   }
 `
 
-interface TemplateProps {
+export interface IndexPageTemplateProps {
   message: string
 }
 
-export const IndexPageTemplate: React.FC<TemplateProps> = ({ message }) => (
-  <div>{message}</div>
-)
+export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
+  message,
+}) => <div>{message}</div>
 
 interface WrapperProps {
   data: IndexPageTemplateQuery

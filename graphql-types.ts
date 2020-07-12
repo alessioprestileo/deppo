@@ -2952,9 +2952,9 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>
 }
 
-export type Site_Metadata_QueryQueryVariables = Exact<{ [key: string]: never }>
+export type SiteMetadataQueryVariables = Exact<{ [key: string]: never }>
 
-export type Site_Metadata_QueryQuery = {
+export type SiteMetadataQuery = {
   site?: Maybe<{
     siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description'>>
   }>

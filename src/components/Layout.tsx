@@ -7,13 +7,11 @@ import Navbar from './Navbar'
 import useSiteMetadata from './SiteMetadata'
 import './all.sass'
 
-const HelmetCast = (Helmet as unknown) as React.FunctionComponent
-
-const TemplateWrapper = ({ children }) => {
+const TemplateWrapper: React.FC = ({ children }) => {
   const { title, description } = useSiteMetadata()
   return (
     <div>
-      <HelmetCast>
+      <Helmet>
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -50,7 +48,7 @@ const TemplateWrapper = ({ children }) => {
           property="og:image"
           content={`${withPrefix('/')}img/og-image.jpg`}
         />
-      </HelmetCast>
+      </Helmet>
       <Navbar />
       <div>{children}</div>
       <Footer />

@@ -1,22 +1,19 @@
 import React from 'react'
-import { IndexPageTemplate } from '../../templates/index-page'
+import { PreviewTemplateComponentProps } from 'netlify-cms-core'
 
-const IndexPagePreview = ({ entry, getAsset }) => {
-  const data = entry.getIn(['data']).toJS()
+import {
+  IndexPageTemplate,
+  IndexPageTemplateProps,
+} from '../../templates/index-page'
 
+const IndexPagePreview: React.FC<PreviewTemplateComponentProps> = ({
+  entry,
+}) => {
+  const data: IndexPageTemplateProps = entry.getIn(['data']).toJS()
   if (data) {
-    return (
-      <IndexPageTemplate
-        image={getAsset(data.image)}
-        title={data.title}
-        heading={data.heading}
-        subheading={data.subheading}
-        description={data.description}
-        intro={data.intro || { blurbs: [] }}
-        mainpitch={data.mainpitch || {}}
-      />
-    )
+    return <IndexPageTemplate message={data.message} />
   }
+
   return <div>Loading...</div>
 }
 

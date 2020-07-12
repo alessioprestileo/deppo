@@ -16,6 +16,6 @@
     ],
     "target": "es2015"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["custom.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules/*", "public/*"]
 }

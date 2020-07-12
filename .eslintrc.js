@@ -40,6 +40,7 @@ module.exports = {
     ],
     'import/prefer-default-export': 0,
     indent: 0,
+    'react/jxs-curli-newline': 0,
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
