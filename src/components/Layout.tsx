@@ -8,13 +8,16 @@ import useSiteMetadata from './SiteMetadata'
 import './all.sass'
 
 const TemplateWrapper: React.FC = ({ children }) => {
-  const { title, description } = useSiteMetadata()
+  const metadata = useSiteMetadata()
+  const title = metadata?.title
+  const description = metadata?.description
+
   return (
     <div>
       <Helmet>
         <html lang="en" />
         <title>{title}</title>
-        <meta name="description" content={description} />
+        {description && <meta name="description" content={description} />}
 
         <link
           rel="apple-touch-icon"
@@ -42,7 +45,7 @@ const TemplateWrapper: React.FC = ({ children }) => {
         <meta name="theme-color" content="#fff" />
 
         <meta property="og:type" content="business.business" />
-        <meta property="og:title" content={title} />
+        {title && <meta property="og:title" content={title} />}
         <meta property="og:url" content="/" />
         <meta
           property="og:image"

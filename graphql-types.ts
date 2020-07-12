@@ -2968,6 +2968,9 @@ export type IndexPageTemplateQuery = {
       welcomeSection?: Maybe<
         Pick<MarkdownRemarkFrontmatterWelcomeSection, 'message'>
       >
+      customerStories?: Maybe<
+        Pick<MarkdownRemarkFrontmatterCustomerStories, 'title'>
+      >
     }>
   }>
 }

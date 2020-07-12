@@ -11,31 +11,32 @@ export const pageQuery = graphql`
         welcomeSection {
           message
         }
+        customerStories {
+          title
+        }
       }
     }
   }
 `
 
 export interface IndexPageTemplateProps {
-  message: string
-}
-
-export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
-  message,
-}) => <div>{message}</div>
-
-interface WrapperProps {
   data: IndexPageTemplateQuery
 }
 
-const IndexPage: React.FC<WrapperProps> = ({ data }) => {
-  const { message } = data.markdownRemark.frontmatter.welcomeSection
+export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
+  data,
+}) => {
+  const title = data.markdownRemark?.frontmatter?.customerStories?.title
 
   return (
     <Layout>
-      <IndexPageTemplate message={message} />
+      <div>{title}</div>
     </Layout>
   )
 }
+
+const IndexPage: React.FC<IndexPageTemplateProps> = ({ data }) => (
+  <IndexPageTemplate data={data} />
+)
 
 export default IndexPage
