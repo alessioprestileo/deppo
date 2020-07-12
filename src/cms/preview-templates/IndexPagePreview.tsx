@@ -1,15 +1,19 @@
 import React from 'react'
 import { PreviewTemplateComponentProps } from 'netlify-cms-core'
 
-import { IndexPageTemplate } from '../../templates/index-page'
-import { IndexPageTemplateQuery } from '../../../graphql-types'
+import {
+  IndexPageTemplate,
+  IndexPageTemplateProps,
+} from '../../templates/index-page'
 
 const IndexPagePreview: React.FC<PreviewTemplateComponentProps> = ({
   entry,
 }) => {
-  const data: IndexPageTemplateQuery = entry.getIn(['data']).toJS()
-  if (data) {
-    return <IndexPageTemplate data={data} />
+  const frontmatter: IndexPageTemplateProps['frontmatter'] = entry
+    .getIn(['data'])
+    .toJS()
+  if (frontmatter) {
+    return <IndexPageTemplate frontmatter={frontmatter} />
   }
 
   return <div>Loading...</div>

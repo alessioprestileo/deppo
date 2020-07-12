@@ -20,13 +20,16 @@ export const pageQuery = graphql`
 `
 
 export interface IndexPageTemplateProps {
-  data: IndexPageTemplateQuery
+  frontmatter: Exclude<
+    IndexPageTemplateQuery['markdownRemark'],
+    null | undefined
+  >['frontmatter']
 }
 
 export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
-  data,
+  frontmatter,
 }) => {
-  const title = data.markdownRemark?.frontmatter?.customerStories?.title
+  const title = frontmatter?.customerStories?.title
 
   return (
     <Layout>
@@ -35,8 +38,13 @@ export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
   )
 }
 
-const IndexPage: React.FC<IndexPageTemplateProps> = ({ data }) => (
-  <IndexPageTemplate data={data} />
-)
+interface IndexPageProps {
+  data: IndexPageTemplateQuery
+}
+
+const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
+  const frontmatter = data.markdownRemark?.frontmatter
+  return <IndexPageTemplate frontmatter={frontmatter} />
+}
 
 export default IndexPage
