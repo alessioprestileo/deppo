@@ -22,7 +22,7 @@ welcomeSection:
         Last ned rapporter og bestem om du vil rapportere det videre via oss for
         enda flere forenklinger
 customerStories:
-  title: Erfaringer
+  title: Erfaringer fra våre kunder
   feedbacks:
     - author: Anders fosshaug
       content: Vi er godt fornøyde
