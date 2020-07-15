@@ -3,9 +3,8 @@ import { Helmet } from 'react-helmet'
 import { withPrefix } from 'gatsby'
 
 import Footer from './Footer'
-import Navbar from './Navbar'
+import Navbar from './navbar/Navbar'
 import useSiteMetadata from './SiteMetadata'
-import './all.sass'
 
 const TemplateWrapper: React.FC = ({ children }) => {
   const metadata = useSiteMetadata()

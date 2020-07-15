@@ -1,0 +1,28 @@
+@import '~bulma/sass/utilities/initial-variables'
+@import '~bulma/sass/utilities/functions'
+
+$deppo-purple: rgb(124, 128, 191)
+$deppo-purple-invert: findColorInvert($deppo-purple)
+
+$primary: $deppo-purple
+$primary-invert: $deppo-purple-invert
+$primary-dark: findDarkColor($primary)
+$primary-dark-invert: findColorInvert($primary-dark)
+$primary-dark-shadow: color.change($primary-dark, $alpha: 0.2)
+$primary-dark-shadow-invert: findColorInvert($primary-dark-shadow)
+$secondary: rgb(255, 112, 82)
+$secondary-invert: findColorInvert($secondary)
+$secondary-light: findLightColor($secondary)
+$secondary-light-invert: findColorInvert($secondary-light)
+$secondary-dark: findDarkColor($secondary)
+$secondary-dark-invert: findColorInvert($secondary-dark)
+$secondary-dark-shadow: color.change($secondary-dark, $alpha: 0.2)
+$secondary-dark-shadow-invert: findColorInvert($secondary-dark-shadow)
+$navbar-background-color: $primary
+$navbar-item-color: $primary-invert
+$navbar-item-active-color: $white
+$navbar-item-active-background-color: $secondary-dark-shadow
+$navbar-item-hover-color: $primary-dark-invert
+$navbar-item-hover-background-color: $primary-dark-shadow
+
+@import '~bulma'
