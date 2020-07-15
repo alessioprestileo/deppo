@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const sassDart = require('sass');
+const sassDart = require('sass')
 
 module.exports = {
   siteMetadata: {
