@@ -1,5 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import remark from 'remark'
+import remarkLintRecommended from 'remark-preset-lint-recommended'
+import remarkHtml from 'remark-html'
 
 import Layout from '../components/Layout'
 import { IndexPageTemplateQuery } from '../../graphql-types'
@@ -29,10 +32,16 @@ export interface IndexPageTemplateProps {
 export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
   frontmatter,
 }) => {
+  const message = remark()
+    .use(remarkLintRecommended)
+    .use(remarkHtml)
+    .processSync(frontmatter?.welcomeSection?.message as any)
+    .toString()
   const title = frontmatter?.customerStories?.title
 
   return (
     <Layout>
+      <div dangerouslySetInnerHTML={{ __html: message }} />
       <div>{title}</div>
     </Layout>
   )

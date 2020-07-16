@@ -45,6 +45,7 @@ module.exports = {
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
+    'react/no-danger': 0,
     'react/prop-types': 0,
     semi: 0,
     'graphql/template-strings': [
