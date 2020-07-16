@@ -1,10 +1,14 @@
 ---
 templateKey: index-page
 welcomeSection:
-  message: |-
-    Opprett depositum-konto der du selv ønsker !
+  message: >-
+    # Opprett depositum-konto der du selv ønsker !
 
-    ***Test message***
+
+    Her får du hjelp til å sammenlikne depositumkonto og muligheten til å velge den som passer best for deg!
+
+
+    Start video til høyre for en kort introduktion eller klikk på “Start nå” for at komme igang.
   videoUrl: https://www.youtube.com/embed/5rDdOhjSBoM?feature=oembed&start&end&wmode=opaque&loop=0&controls=1&mute=0&rel=0&modestbranding=0
   blurbs:
     - image: /img/paper-plane.png
