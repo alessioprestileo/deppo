@@ -1,11 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import remark from 'remark'
-import remarkLintRecommended from 'remark-preset-lint-recommended'
-import remarkHtml from 'remark-html'
 
-import Layout from '../components/Layout'
+import { MarkdownWidget } from '../components/markdown-widget/MarkdownWidget'
+import { Layout } from '../components/Layout'
 import { IndexPageTemplateQuery } from '../../graphql-types'
+import { PageContent } from '../components/PageContent'
 
 export const pageQuery = graphql`
   query IndexPageTemplate {
@@ -32,17 +31,15 @@ export interface IndexPageTemplateProps {
 export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
   frontmatter,
 }) => {
-  const message = remark()
-    .use(remarkLintRecommended)
-    .use(remarkHtml)
-    .processSync(frontmatter?.welcomeSection?.message as any)
-    .toString()
+  const message = frontmatter?.welcomeSection?.message
   const title = frontmatter?.customerStories?.title
 
   return (
     <Layout>
-      <div dangerouslySetInnerHTML={{ __html: message }} />
-      <div>{title}</div>
+      <PageContent>
+        {message && <MarkdownWidget markdown={message} />}
+        <div>{title}</div>
+      </PageContent>
     </Layout>
   )
 }

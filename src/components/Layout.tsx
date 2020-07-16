@@ -6,7 +6,7 @@ import Footer from './Footer'
 import Navbar from './navbar/Navbar'
 import useSiteMetadata from './SiteMetadata'
 
-const TemplateWrapper: React.FC = ({ children }) => {
+export const Layout: React.FC = ({ children }) => {
   const metadata = useSiteMetadata()
   const title = metadata?.title
   const description = metadata?.description
@@ -57,5 +57,3 @@ const TemplateWrapper: React.FC = ({ children }) => {
     </div>
   )
 }
-
-export default TemplateWrapper

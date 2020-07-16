@@ -2,7 +2,7 @@
 templateKey: index-page
 welcomeSection:
   message: >-
-    # Opprett depositum-konto der du selv ønsker !
+    ## Opprett depositum-konto der du selv ønsker !
 
 
     Her får du hjelp til å sammenlikne depositumkonto og muligheten til å velge den som passer best for deg!
