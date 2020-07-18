@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import { HamburgerMenu } from './HamburgerMenu'
 import styles from './navbar.module.sass'
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
   const [active, setActive] = useState(false)
   const toggleHamburger = () => setActive(!active)
   const activeClass = active ? 'is-active' : ''
@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
           <HamburgerMenu activeClass={activeClass} onToggle={toggleHamburger} />
         </div>
         <div id="navMenu" className={`navbar-menu ${activeClass}`}>
-          <div className="navbar-start has-text-centered">
+          <div className="navbar-end has-text-centered">
             <Link className="navbar-item" to="/about">
               About
             </Link>
@@ -45,5 +45,3 @@ const Navbar: React.FC = () => {
     </nav>
   )
 }
-
-export default Navbar

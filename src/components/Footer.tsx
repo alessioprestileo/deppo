@@ -6,7 +6,7 @@ import instagram from '../assets/img/social/instagram.svg'
 import twitter from '../assets/img/social/twitter.svg'
 import vimeo from '../assets/img/social/vimeo.svg'
 
-const Footer = () => (
+export const Footer = () => (
   <footer className="footer has-background-black has-text-white-ter">
     <div className="content has-text-centered">
       <img src={logo} alt="Kaldi" style={{ width: '14em', height: '10em' }} />
@@ -50,5 +50,3 @@ const Footer = () => (
     </div>
   </footer>
 )
-
-export default Footer

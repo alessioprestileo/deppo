@@ -4,7 +4,6 @@ import { graphql } from 'gatsby'
 import { MarkdownWidget } from '../components/markdown-widget/MarkdownWidget'
 import { Layout } from '../components/Layout'
 import { IndexPageTemplateQuery } from '../../graphql-types'
-import { PageContent } from '../components/PageContent'
 
 export const pageQuery = graphql`
   query IndexPageTemplate {
@@ -36,10 +35,8 @@ export const IndexPageTemplate: React.FC<IndexPageTemplateProps> = ({
 
   return (
     <Layout>
-      <PageContent>
-        {message && <MarkdownWidget markdown={message} />}
-        <div>{title}</div>
-      </PageContent>
+      {message && <MarkdownWidget markdown={message} />}
+      <div>{title}</div>
     </Layout>
   )
 }

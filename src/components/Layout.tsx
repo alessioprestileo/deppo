@@ -2,9 +2,10 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { withPrefix } from 'gatsby'
 
-import Footer from './Footer'
-import Navbar from './navbar/Navbar'
+import { Footer } from './Footer'
+import { Navbar } from './navbar/Navbar'
 import useSiteMetadata from './SiteMetadata'
+import { PageContent } from './PageContent'
 
 export const Layout: React.FC = ({ children }) => {
   const metadata = useSiteMetadata()
@@ -17,7 +18,6 @@ export const Layout: React.FC = ({ children }) => {
         <html lang="en" />
         <title>{title}</title>
         {description && <meta name="description" content={description} />}
-
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -52,7 +52,7 @@ export const Layout: React.FC = ({ children }) => {
         />
       </Helmet>
       <Navbar />
-      <div>{children}</div>
+      <PageContent>{children}</PageContent>
       <Footer />
     </div>
   )
