@@ -695,6 +695,7 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___id'
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___templateKey'
+  | 'childMarkdownRemark___frontmatter___welcomeSection___title'
   | 'childMarkdownRemark___frontmatter___welcomeSection___message'
   | 'childMarkdownRemark___frontmatter___welcomeSection___videoUrl'
   | 'childMarkdownRemark___frontmatter___welcomeSection___blurbs'
@@ -1475,6 +1476,7 @@ export type MarkdownRemarkFieldsEnum =
   | 'id'
   | 'frontmatter___title'
   | 'frontmatter___templateKey'
+  | 'frontmatter___welcomeSection___title'
   | 'frontmatter___welcomeSection___message'
   | 'frontmatter___welcomeSection___videoUrl'
   | 'frontmatter___welcomeSection___blurbs'
@@ -1721,6 +1723,7 @@ export type MarkdownRemarkFrontmatterFilterInput = {
 };
 
 export type MarkdownRemarkFrontmatterWelcomeSection = {
+  title?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
   videoUrl?: Maybe<Scalars['String']>;
   blurbs?: Maybe<Array<Maybe<MarkdownRemarkFrontmatterWelcomeSectionBlurbs>>>;
@@ -1741,6 +1744,7 @@ export type MarkdownRemarkFrontmatterWelcomeSectionBlurbsFilterListInput = {
 };
 
 export type MarkdownRemarkFrontmatterWelcomeSectionFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
   message?: Maybe<StringQueryOperatorInput>;
   videoUrl?: Maybe<StringQueryOperatorInput>;
   blurbs?: Maybe<MarkdownRemarkFrontmatterWelcomeSectionBlurbsFilterListInput>;
@@ -3050,7 +3054,10 @@ export type SiteMetadataQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteS
 export type IndexPageTemplateQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type IndexPageTemplateQuery = { markdownRemark?: Maybe<{ frontmatter?: Maybe<{ welcomeSection?: Maybe<Pick<MarkdownRemarkFrontmatterWelcomeSection, 'message'>>, customerStories?: Maybe<Pick<MarkdownRemarkFrontmatterCustomerStories, 'title'>> }> }> };
+export type IndexPageTemplateQuery = { markdownRemark?: Maybe<{ frontmatter?: Maybe<{ welcomeSection?: Maybe<(
+        Pick<MarkdownRemarkFrontmatterWelcomeSection, 'message' | 'title' | 'videoUrl'>
+        & { blurbs?: Maybe<Array<Maybe<{ image?: Maybe<Pick<File, 'publicURL'>> }>>> }
+      )>, customerStories?: Maybe<Pick<MarkdownRemarkFrontmatterCustomerStories, 'title'>> }> }> };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

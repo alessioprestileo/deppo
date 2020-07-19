@@ -3,8 +3,6 @@ import remark from 'remark'
 import remarkLintRecommended from 'remark-preset-lint-recommended'
 import remarkHtml from 'remark-html'
 
-import styles from './markdown-widget.module.sass'
-
 interface Props {
   markdown: string
 }
@@ -17,9 +15,6 @@ export const MarkdownWidget: React.FC<Props> = ({ markdown }) => {
     .toString()
 
   return (
-    <div
-      className={styles.deppoStyleMarkdownWidget}
-      dangerouslySetInnerHTML={{ __html: innerHtml }}
-    />
+    <div className="content" dangerouslySetInnerHTML={{ __html: innerHtml }} />
   )
 }
