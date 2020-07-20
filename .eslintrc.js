@@ -46,6 +46,7 @@ module.exports = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
     'react/no-danger': 0,
+    'react/jsx-one-expression-per-line': 0,
     'react/jsx-props-no-spreading': 0,
     'react/prop-types': 0,
     semi: 0,

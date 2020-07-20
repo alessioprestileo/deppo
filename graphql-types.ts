@@ -2610,6 +2610,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___jsxPragma'
   | 'pluginCreator___pluginOptions___allExtensions'
   | 'pluginCreator___pluginOptions___implementation___info'
+  | 'pluginCreator___pluginOptions___prefixes'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___maxWidth'
@@ -2818,6 +2819,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___jsxPragma'
   | 'pluginOptions___allExtensions'
   | 'pluginOptions___implementation___info'
+  | 'pluginOptions___prefixes'
   | 'pluginOptions___path'
   | 'pluginOptions___name'
   | 'pluginOptions___maxWidth'
@@ -2943,6 +2945,7 @@ export type SitePluginPluginOptions = {
   jsxPragma?: Maybe<Scalars['String']>;
   allExtensions?: Maybe<Scalars['Boolean']>;
   implementation?: Maybe<SitePluginPluginOptionsImplementation>;
+  prefixes?: Maybe<Array<Maybe<Scalars['String']>>>;
   path?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
@@ -2959,6 +2962,7 @@ export type SitePluginPluginOptionsFilterInput = {
   jsxPragma?: Maybe<StringQueryOperatorInput>;
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   implementation?: Maybe<SitePluginPluginOptionsImplementationFilterInput>;
+  prefixes?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
@@ -3057,7 +3061,10 @@ export type IndexPageTemplateQueryVariables = Exact<{ [key: string]: never; }>;
 export type IndexPageTemplateQuery = { markdownRemark?: Maybe<{ frontmatter?: Maybe<{ welcomeSection?: Maybe<(
         Pick<MarkdownRemarkFrontmatterWelcomeSection, 'message' | 'title' | 'videoUrl'>
         & { blurbs?: Maybe<Array<Maybe<{ image?: Maybe<Pick<File, 'publicURL'>> }>>> }
-      )>, customerStories?: Maybe<Pick<MarkdownRemarkFrontmatterCustomerStories, 'title'>> }> }> };
+      )>, customerStories?: Maybe<(
+        Pick<MarkdownRemarkFrontmatterCustomerStories, 'title'>
+        & { feedbacks?: Maybe<Array<Maybe<Pick<MarkdownRemarkFrontmatterCustomerStoriesFeedbacks, 'author' | 'content'>>>> }
+      )> }> }> };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
