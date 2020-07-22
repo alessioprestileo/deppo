@@ -1,7 +1,7 @@
 const express = require('express')
 const proxy = require('express-http-proxy')
 
-const FUNCTIONS_PORT = 34877
+const FUNCTIONS_PORT = 39535
 
 const app = express()
 const port = 3000

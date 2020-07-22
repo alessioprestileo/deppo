@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const Protected: React.FC = () => {
+const Lambda: React.FC = () => {
   const [data, setData] = useState()
   const fetchData = async () => {
     const response = await fetch('/.netlify/functions/hello')
@@ -14,10 +14,10 @@ const Protected: React.FC = () => {
 
   return (
     <>
-      <div>PROTECTED</div>
+      <div>LAMBDA</div>
       <div>DATA: {JSON.stringify(data)}</div>
     </>
   )
 }
 
-export default Protected
+export default Lambda

@@ -40,6 +40,8 @@ module.exports = {
     ],
     'import/prefer-default-export': 0,
     indent: 0,
+    'max-len': 0,
+    'no-confusing-arrow': 0,
     'react/jsx-curly-newline': 0,
     'react/jsx-filename-extension': [
       1,
