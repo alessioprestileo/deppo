@@ -1,8 +1,9 @@
 import React from 'react'
 
+import { RouteComponentProps } from '../shared/types'
 import { Layout } from '../components/Layout'
 
-const NotFoundPage: React.FC = () => (
+const NotFoundPage: React.FC<RouteComponentProps> = () => (
   <Layout>
     <div>
       <h1>NOT FOUND</h1>

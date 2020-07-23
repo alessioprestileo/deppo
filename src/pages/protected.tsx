@@ -2,12 +2,14 @@ import React from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Router } from '@reach/router' // this package comes with Gatsby
 
-import { Layout } from '../../components/Layout'
-import { PrivateRoute } from '../../services/authentication/PrivateRoute'
-import { Default } from './default/default'
-import { UserDetails } from './user-details/UserDetails'
-import { RedirectCallback } from './RedirectCallback'
-import { LogoutCallback } from './LogoutCallback'
+import { Layout } from '../components/Layout'
+import PrivateRoute from '../services/authentication/PrivateRoute'
+import LogoutCallback from '../services/authentication/LogoutCallback'
+import RedirectCallback from '../services/authentication/RedirectCallback'
+
+import Home from '../templates/protected/home'
+import UserDetails from '../templates/protected/user-details'
+import NotFoundPage from './404'
 
 const Protected: React.FC = () => (
   <Layout>
@@ -15,7 +17,8 @@ const Protected: React.FC = () => (
       <RedirectCallback path="/RedirectCallback" />
       <LogoutCallback path="/logout" />
       <PrivateRoute path="/user-details" component={UserDetails} />
-      <Default path="/" />
+      <Home path="/" />
+      <NotFoundPage default />
     </Router>
   </Layout>
 )

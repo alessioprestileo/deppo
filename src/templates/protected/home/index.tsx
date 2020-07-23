@@ -11,7 +11,7 @@ interface Props {
   path?: '/'
 }
 
-export const Default: React.FC<Props> = () => {
+const Home: React.FC<Props> = () => {
   const [loginOption, setLoginOption] = useState(-1)
   const handleSelect = (
     event: React.SyntheticEvent<HTMLSelectElement, Event>,
@@ -41,7 +41,8 @@ export const Default: React.FC<Props> = () => {
           <div>
             <h1>Welcome to Criipto Demo App for React</h1>
             <div>
-              <select onSelect={handleSelect} value={loginOption}>
+              <select onChange={handleSelect}>
+                <option value="-1">Select an option</option>
                 {LOGIN_OPTIONS.map((item) => (
                   <option key={item.Id} value={item.Id}>
                     {item.FullName}
@@ -62,3 +63,5 @@ export const Default: React.FC<Props> = () => {
     </AuthConsumer>
   )
 }
+
+export default Home
