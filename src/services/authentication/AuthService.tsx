@@ -13,7 +13,8 @@ export class AuthService {
       post_logout_redirect_uri:
         process.env.REACT_APP_IDENTITY_CONFIG_POST_LOGOUT_REDIRECT_URI,
       acr_values: acrValues,
-      userStore: new WebStorageStateStore({ store: window.sessionStorage }),
+      userStore:
+        window && new WebStorageStateStore({ store: window.sessionStorage }),
     })
 
     this.userManager.events.addUserLoaded(() => {
