@@ -1,6 +1,8 @@
 import { navigate } from 'gatsby'
 import { UserManager, WebStorageStateStore } from 'oidc-client'
 
+import { isClientSide } from '../../shared/utils'
+
 export class AuthService {
   userManager: UserManager
 
@@ -13,12 +15,15 @@ export class AuthService {
       post_logout_redirect_uri:
         process.env.REACT_APP_IDENTITY_CONFIG_POST_LOGOUT_REDIRECT_URI,
       acr_values: acrValues,
-      userStore:
-        window && new WebStorageStateStore({ store: window.sessionStorage }),
+      userStore: isClientSide()
+        ? new WebStorageStateStore({ store: window.sessionStorage })
+        : undefined,
     })
 
     this.userManager.events.addUserLoaded(() => {
-      window.top.dispatchEvent(new Event('LoginSuccess'))
+      if (isClientSide()) {
+        window.top.dispatchEvent(new Event('LoginSuccess'))
+      }
     })
   }
 
@@ -34,8 +39,10 @@ export class AuthService {
     try {
       await this.userManager.signinRedirectCallback()
     } catch (error) {
-      // eslint-disable-next-line no-alert
-      window.alert('Oops, something went wrong')
+      if (isClientSide()) {
+        // eslint-disable-next-line no-alert
+        window.alert('Oops, something went wrong')
+      }
     }
     navigate('/protected')
   }
