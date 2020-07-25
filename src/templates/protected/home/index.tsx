@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 
+import { hasSessionStorage } from '../../../shared/utils'
 import {
   LOGIN_OPTIONS,
   AuthService,
@@ -19,9 +20,11 @@ const Home: React.FC<Props> = () => {
   const handleLoginClick = () =>
     new AuthService(LOGIN_OPTIONS[loginOption].AcrValues).signinRedirect()
   const goToUserDetails = () => navigate('/user-details')
-  const oidcStorageItem = sessionStorage.getItem(
-    `oidc.user:${process.env.REACT_APP_IDENTITY_CONFIG_AUTHORITY}:${process.env.REACT_APP_IDENTITY_CONFIG_CLIENT_ID}`,
-  )
+  const oidcStorageItem = hasSessionStorage()
+    ? sessionStorage.getItem(
+        `oidc.user:${process.env.REACT_APP_IDENTITY_CONFIG_AUTHORITY}:${process.env.REACT_APP_IDENTITY_CONFIG_CLIENT_ID}`,
+      )
+    : undefined
   const userName = oidcStorageItem && JSON.parse(oidcStorageItem).profile.name
 
   return (
