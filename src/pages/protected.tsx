@@ -6,7 +6,6 @@ import { Layout } from '../components/Layout'
 import PrivateRoute from '../services/authentication/PrivateRoute'
 import LogoutCallback from '../services/authentication/LogoutCallback'
 import RedirectCallback from '../services/authentication/RedirectCallback'
-
 import Home from '../templates/protected/home'
 import UserDetails from '../templates/protected/user-details'
 import NotFoundPage from './404'

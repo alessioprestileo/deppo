@@ -42,6 +42,11 @@ module.exports = {
     indent: 0,
     'max-len': 0,
     'no-confusing-arrow': 0,
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { varsIgnorePattern: '[iI]gnored', argsIgnorePattern: '[iI]gnored' },
+    ],
     'react/jsx-curly-newline': 0,
     'react/jsx-filename-extension': [
       1,

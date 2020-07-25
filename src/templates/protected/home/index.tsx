@@ -40,6 +40,7 @@ const Home: React.FC<Props> = () => {
         ) : (
           <div>
             <h1>Welcome to Criipto Demo App for React</h1>
+            <div>VARIABLE: {process.env.USELESS_VAR}</div>
             <div>
               <select onChange={handleSelect}>
                 <option value="-1">Select an option</option>
