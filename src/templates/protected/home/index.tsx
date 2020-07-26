@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 
 import { hasSessionStorage } from '../../../shared/utils'
@@ -17,26 +17,16 @@ const Home: React.FC<Props> = () => {
   const handleSelect = (
     event: React.SyntheticEvent<HTMLSelectElement, Event>,
   ) => setLoginOption(parseInt((event.target as HTMLInputElement).value, 10))
-  const handleLoginClick = () =>
-    new AuthService(LOGIN_OPTIONS[loginOption].AcrValues).signinRedirect()
-  const goToUserDetails = () => navigate('/user-details')
+  const goToUserDetails = () => navigate('/protected/user-details')
   const oidcStorageItem = hasSessionStorage()
     ? sessionStorage.getItem(
-        `oidc.user:${process.env.REACT_APP_IDENTITY_CONFIG_AUTHORITY}:${process.env.REACT_APP_IDENTITY_CONFIG_CLIENT_ID}`,
+        `oidc.user:${process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_AUTHORITY}:${process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_CLIENT_ID}`,
       )
     : undefined
   const userName = oidcStorageItem && JSON.parse(oidcStorageItem).profile.name
 
-  const [envVars, setEnvVars] = useState({})
-  const fetchEnvVars = async () => {
-    const parsed = await fetch('/.netlify/functions/envVars').then((res) =>
-      res.json(),
-    )
-    setEnvVars(parsed)
-  }
-  useEffect(() => {
-    fetchEnvVars()
-  }, [])
+  const handleLoginClick = () =>
+    new AuthService(LOGIN_OPTIONS[loginOption].AcrValues).signinRedirect()
 
   return (
     <AuthConsumer>
@@ -54,7 +44,6 @@ const Home: React.FC<Props> = () => {
         ) : (
           <div>
             <h1>Welcome to Criipto Demo App for React</h1>
-            <div>VARS KEYS: {JSON.stringify(Object.keys(envVars))}</div>
             <div>
               <select onChange={handleSelect}>
                 <option value="-1">Select an option</option>

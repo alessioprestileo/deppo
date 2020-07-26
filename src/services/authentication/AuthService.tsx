@@ -9,12 +9,11 @@ export class AuthService {
   constructor(acrValues?: string) {
     if (isClientSide() && hasSessionStorage()) {
       this.userManager = new UserManager({
-        authority: process.env.REACT_APP_IDENTITY_CONFIG_AUTHORITY,
-        client_id: process.env.REACT_APP_IDENTITY_CONFIG_CLIENT_ID,
-        redirect_uri: process.env.REACT_APP_IDENTITY_CONFIG_REDIRECT_URI,
-        response_type: process.env.REACT_APP_IDENTITY_CONFIG_RESPONSE_TYPE,
+        authority: process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_AUTHORITY,
+        client_id: process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_CLIENT_ID,
+        redirect_uri: process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_REDIRECT_URI,
         post_logout_redirect_uri:
-          process.env.REACT_APP_IDENTITY_CONFIG_POST_LOGOUT_REDIRECT_URI,
+          process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_POST_LOGOUT_REDIRECT_URI,
         acr_values: acrValues,
         userStore: new WebStorageStateStore({ store: window.sessionStorage }),
       })
@@ -71,7 +70,7 @@ export class AuthService {
   isAuthenticated = (): boolean => {
     const oidcStorageItem = hasSessionStorage()
       ? sessionStorage.getItem(
-          `oidc.user:${process.env.REACT_APP_IDENTITY_CONFIG_AUTHORITY}:${process.env.REACT_APP_IDENTITY_CONFIG_CLIENT_ID}`,
+          `oidc.user:${process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_AUTHORITY}:${process.env.GATSBY_CRIIPTO_IDENTITY_CONFIG_CLIENT_ID}`,
         )
       : undefined
     const oidcStorage = oidcStorageItem && JSON.parse(oidcStorageItem)

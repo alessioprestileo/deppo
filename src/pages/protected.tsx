@@ -13,7 +13,7 @@ import NotFoundPage from './404'
 const Protected: React.FC = () => (
   <Layout>
     <Router basepath="/protected">
-      <RedirectCallback path="/RedirectCallback" />
+      <RedirectCallback path="/redirect-callback" />
       <LogoutCallback path="/logout" />
       <PrivateRoute path="/user-details" component={UserDetails} />
       <Home path="/" />
