@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { AuthConsumer } from './AuthProvider'
-import Home from '../../templates/protected/home'
-import { RouteComponentProps } from '../../shared/types'
+import Home from '../../../templates/protected/home'
+import { RouteComponentProps } from '../../../shared/types'
 
 interface Props extends RouteComponentProps {
   component: React.ComponentType
