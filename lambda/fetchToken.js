@@ -3,7 +3,7 @@ module.exports.handler = async (eventIgnored, contextIgnored) => {
     const res = await fetch({
       method: 'GET',
       headers: { api_key: process.env.DEPPO_BACKEND_API_KEY },
-      url: 'http://localhost:5000/v1',
+      url: 'http://localhost:5000/v1/token',
     })
 
     return {
@@ -12,7 +12,7 @@ module.exports.handler = async (eventIgnored, contextIgnored) => {
     }
   } catch (e) {
     return {
-      statusCode: 400,
+      statusCode: 500,
       body: JSON.stringify(e),
     }
   }

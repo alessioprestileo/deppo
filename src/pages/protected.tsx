@@ -4,8 +4,8 @@ import { Router } from '@reach/router' // this package comes with Gatsby
 
 import { Layout } from '../components/Layout'
 import PrivateRoute from '../services/authentication/deppo-backend/PrivateRoute'
-// import LogoutCallback from '../services/authentication/LogoutCallback'
-// import RedirectCallback from '../services/authentication/RedirectCallback'
+// import LogoutCallback from '../services/authentication/deppo-backend/LogoutCallback'
+import LoginRedirect from '../services/authentication/deppo-backend/LoginRedirect'
 import Home from '../templates/protected/home'
 import UserDetails from '../templates/protected/user-details'
 import NotFoundPage from './404'
@@ -13,7 +13,7 @@ import NotFoundPage from './404'
 const Protected: React.FC = () => (
   <Layout>
     <Router basepath="/protected">
-      {/* <RedirectCallback path="/redirect-callback" /> */}
+      <LoginRedirect path="/login-redirect" />
       {/* <LogoutCallback path="/logout" /> */}
       <PrivateRoute path="/user-details" component={UserDetails} />
       <Home path="/" />

@@ -9,3 +9,8 @@ export type TokenResponse = {
   // eslint-disable-next-line camelcase
   expires_in: number
 }
+
+export type SessionCreateResponse = {
+  RequestId: string
+  Url: string
+}

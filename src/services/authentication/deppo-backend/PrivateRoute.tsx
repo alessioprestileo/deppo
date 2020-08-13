@@ -3,7 +3,7 @@ import React from 'react'
 import { AuthConsumer } from './AuthProvider'
 import Home from '../../../templates/protected/home'
 import { RouteComponentProps } from '../../../shared/types'
-import { useIsAuthenticated } from './useIsAuthenticated'
+import { useAuthStatus } from './useAuthStatus'
 
 interface Props extends RouteComponentProps {
   component: React.ComponentType
@@ -12,14 +12,15 @@ interface Props extends RouteComponentProps {
 const PrivateRoute: React.FC<Props> = ({ component: Component, ...rest }) => (
   <AuthConsumer>
     {(authService) => {
-      const { isAuthenticated, authStatus } = useIsAuthenticated(authService)
-      if (isAuthenticated) {
+      const { hasValidToken } = authService
+      const authStatus = useAuthStatus(authService)
+      if (hasValidToken()) {
         return <Component {...rest} />
       }
-      if (!isAuthenticated && authStatus === 'IN_PROGRESS') {
+      if (!hasValidToken && authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS') {
         return <div>LOADING...</div>
       }
-      if (!isAuthenticated && authStatus === 'ABORTED') {
+      if (!hasValidToken && authStatus === 'TOKEN_RETRIEVAL_ABORTED') {
         return <div>ERROR !</div>
       }
       return <Home />
