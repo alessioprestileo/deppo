@@ -26,10 +26,12 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
     authService.logout()
   }
 
-  if (!authStatus || authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS')
+  if (!authStatus || authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS') {
     return <div>LOADING...</div>
-  if (authStatus === 'TOKEN_RETRIEVAL_ABORTED')
+  }
+  if (authStatus === 'TOKEN_RETRIEVAL_ABORTED') {
     return <div>OOPS, SOMETHING WENT WRONG!</div>
+  }
 
   return isAuthenticated() ? (
     <section>

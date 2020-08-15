@@ -16,16 +16,13 @@ export type StatusListener = (initializationStatus: Status) => void
 
 export class AuthService {
   private _tokenInfo?: TokenInfo
-  private deppoApiKey: string
   private statusListeners: StatusListener[] = []
   private _createSessionUrl?: string
   private _sessionId?: string
   private _status: Status
   tokenExpirationTolerance = 5000
-  backendUrl = 'http://localhost:5000/v1'
 
   constructor() {
-    this.deppoApiKey = this.getDeppoApiKeyFromEnv()
     const storedTokenInfo = AuthService.retrieveTokenInfoFromSessionStorage()
     if (storedTokenInfo) {
       this.updateStatus('TOKEN_RETRIEVAL_SUCESSFUL')
@@ -51,15 +48,6 @@ export class AuthService {
   private updateStatus = (status: Status): void => {
     this._status = status
     this.notifyStatusListeners()
-  }
-
-  private getDeppoApiKeyFromEnv = (): string => {
-    const deppoApiKey = process.env.GATSBY_DEPPO_BACKEND_API_KEY
-    if (!deppoApiKey) {
-      throw new Error('NO VALID KEY FOR Deppo backend')
-    }
-
-    return deppoApiKey
   }
 
   private fetchToken = async (): Promise<void> => {
@@ -204,10 +192,9 @@ export class AuthService {
       RequestId: this._sessionId,
     }
     const res = await requestWithTimeout(
-      fetch(`${this.backendUrl}/invalidate-session`, {
+      fetch('/.netlify/functions/invalidateSession', {
         method: 'PUT',
         headers: {
-          'api-key': this.deppoApiKey,
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(reqBody),
