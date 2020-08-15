@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { RouteComponentProps } from '../../shared/types'
+import { RouteComponentProps } from '../../../shared/types'
 import { AuthConsumer } from './AuthProvider'
 
-const LogoutCallback: React.FC<RouteComponentProps> = ({ location }) => (
+const RedirectCallback: React.FC<RouteComponentProps> = ({ location }) => (
   <AuthConsumer>
-    {({ signoutRedirectCallback }) => {
-      signoutRedirectCallback()
+    {({ signinRedirectCallback }) => {
+      signinRedirectCallback()
 
       return location?.search.includes('error') ? (
         <p>There has been an error! Pleas try again.</p>
@@ -17,4 +17,4 @@ const LogoutCallback: React.FC<RouteComponentProps> = ({ location }) => (
   </AuthConsumer>
 )
 
-export default LogoutCallback
+export default RedirectCallback

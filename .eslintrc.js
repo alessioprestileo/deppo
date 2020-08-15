@@ -41,9 +41,17 @@ module.exports = {
     ],
     'import/prefer-default-export': 0,
     indent: 0,
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
     'max-len': 0,
     'no-confusing-arrow': 0,
+    'no-return-assign': ['error', 'except-parens'],
+    'no-underscore-dangle': 0,
     'no-unused-vars': 'off',
+    'operator-linebreak': 0,
     '@typescript-eslint/no-unused-vars': [
       'error',
       { varsIgnorePattern: '[iI]gnored', argsIgnorePattern: '[iI]gnored' },

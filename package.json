@@ -39,9 +39,12 @@
     "uuid": "^7.0.0"
   },
   "scripts": {
+    "postinstall": "npm --prefix './lambda-dev' install",
+    "build-lambda": "npm run --prefix './lambda-dev' build-lambda",
+    "netlify-dev": "npm run build-lambda && netlify dev",
     "clean": "gatsby clean",
     "start": "npm run develop",
-    "build": "npm run clean && gatsby build",
+    "build": "npm run clean && gatsby build && npm run build-lambda",
     "develop": "npm run clean && gatsby develop",
     "format": "prettier --write \"gatsby-*.js\" \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint . --ext ts --ext tsx",

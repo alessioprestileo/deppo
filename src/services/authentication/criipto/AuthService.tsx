@@ -1,7 +1,7 @@
 import { navigate } from 'gatsby'
 import { UserManager, WebStorageStateStore } from 'oidc-client'
 
-import { isClientSide, hasSessionStorage } from '../../shared/utils'
+import { isClientSide, hasSessionStorage } from '../../../shared/utils'
 
 export class AuthService {
   userManager?: UserManager
