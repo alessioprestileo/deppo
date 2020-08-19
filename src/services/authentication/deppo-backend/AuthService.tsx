@@ -1,5 +1,10 @@
 import { hasSessionStorage, requestWithTimeout } from '../../../shared/utils'
-import { TokenInfo, TokenResponse, SessionCreateResponse } from './types'
+import {
+  TokenInfo,
+  TokenResponse,
+  SessionCreateResponse,
+  SessionFetchResponse,
+} from './types'
 
 export type Status =
   | 'TOKEN_RETRIEVAL_IN_PROGRESS'
@@ -7,10 +12,14 @@ export type Status =
   | 'TOKEN_RETRIEVAL_ABORTED'
   | 'SESSION_CREATION_ABORTED'
   | 'SESSION_CREATION_IN_PROGRESS'
-  | 'SESSION_RETRIEVAL_SUCESSFUL'
+  | 'SESSIONID_RETRIEVAL_SUCESSFUL'
   | 'SESSION_CREATION_SUCCESSFUL'
   | 'SESSION_INVALIDATED'
+  | 'SESSION_RETRIEVAL_SUCESSFUL'
   | 'SESSION_INVALIDATION_ABORTED'
+  | 'SESSION_FETCHING_IN_PROGRESS'
+  | 'SESSION_FETCHING_SUCCESSFUL'
+  | 'SESSION_FETCHING_ABORTED'
 
 export type StatusListener = (initializationStatus: Status) => void
 
@@ -19,19 +28,28 @@ export class AuthService {
   private statusListeners: StatusListener[] = []
   private _createSessionUrl?: string
   private _sessionId?: string
+  private _session?: SessionFetchResponse
   private _status: Status
-  tokenExpirationTolerance = 5000
+  private tokenExpirationTolerance = 5000
 
   constructor() {
-    const storedTokenInfo = AuthService.retrieveTokenInfoFromSessionStorage()
-    if (storedTokenInfo) {
-      this.updateStatus('TOKEN_RETRIEVAL_SUCESSFUL')
+    const storedTokenInfo = AuthService.retrieveTokenInfoFromStorage()
+    if (storedTokenInfo && !this.tokenHasExpired(storedTokenInfo)) {
       this._tokenInfo = storedTokenInfo
+      this.updateStatus('TOKEN_RETRIEVAL_SUCESSFUL')
 
-      const storedSessionId = AuthService.retrieveSessionIdFromSessionStorage()
+      const storedSessionId = AuthService.retrieveSessionIdFromStorage()
       if (storedSessionId) {
-        this.updateStatus('SESSION_RETRIEVAL_SUCESSFUL')
         this._sessionId = storedSessionId
+        this.updateStatus('SESSIONID_RETRIEVAL_SUCESSFUL')
+
+        const storedSession = AuthService.retrieveSessionFromStorage()
+        if (storedSession) {
+          this._session = storedSession
+          this.updateStatus('SESSION_RETRIEVAL_SUCESSFUL')
+
+          return
+        }
 
         return
       }
@@ -39,10 +57,17 @@ export class AuthService {
       return
     }
 
+    this.clearAllStorage()
     this.updateStatus('TOKEN_RETRIEVAL_IN_PROGRESS')
     this.fetchToken()
       .then(() => this.updateStatus('TOKEN_RETRIEVAL_SUCESSFUL'))
       .catch(() => this.updateStatus('TOKEN_RETRIEVAL_ABORTED'))
+  }
+
+  private clearAllStorage = () => {
+    this.clearTokenInfoFromStorage()
+    this.clearSessionIdFromStorage()
+    this.clearSessionFromStorage()
   }
 
   private updateStatus = (status: Status): void => {
@@ -69,16 +94,22 @@ export class AuthService {
     this.saveTokenInfo(tokenInfo)
   }
 
-  private static retrieveSessionIdFromSessionStorage = ():
-    | string
+  private static retrieveSessionFromStorage = ():
+    | SessionFetchResponse
     | false
     | null => {
+    const session = hasSessionStorage() && sessionStorage.getItem('session')
+
+    return session && JSON.parse(session)
+  }
+
+  private static retrieveSessionIdFromStorage = (): string | false | null => {
     const sessionId = hasSessionStorage() && sessionStorage.getItem('sessionId')
 
     return sessionId
   }
 
-  private static retrieveTempSessionIdFromSessionStorage = ():
+  private static retrieveTempSessionIdFromStorage = ():
     | string
     | false
     | null => {
@@ -88,9 +119,7 @@ export class AuthService {
     return tempSessionId
   }
 
-  private static retrieveTokenInfoFromSessionStorage = ():
-    | TokenInfo
-    | false => {
+  private static retrieveTokenInfoFromStorage = (): TokenInfo | false => {
     const tokenInfoString = hasSessionStorage()
       ? sessionStorage.getItem('tokenInfo')
       : undefined
@@ -147,6 +176,10 @@ export class AuthService {
     return this._createSessionUrl
   }
 
+  get session() {
+    return this._session
+  }
+
   get status() {
     return this._status
   }
@@ -184,6 +217,34 @@ export class AuthService {
     this._createSessionUrl = resBody.Url
   }
 
+  private fetchSession = async (): Promise<void> => {
+    const { token } = await this.getValidToken()
+    if (!this._sessionId) {
+      throw new Error('COULD NOT FETCH SESSION: MISSING SESSION ID')
+    }
+
+    this.updateStatus('SESSION_FETCHING_IN_PROGRESS')
+    const res = await requestWithTimeout(
+      fetch('/.netlify/functions/fetchSession', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'session-id': this._sessionId,
+        },
+      }),
+    )
+
+    if (res === 'expired') {
+      this.updateStatus('SESSION_FETCHING_ABORTED')
+      throw new Error('COULD NOT FETCH SESSION')
+    }
+
+    const resBody = (await res.json()) as SessionFetchResponse
+    this._session = resBody
+    this.saveSession()
+    this.updateStatus('SESSION_FETCHING_SUCCESSFUL')
+  }
+
   logout = async (): Promise<void> => {
     if (!this._sessionId) return
 
@@ -203,7 +264,8 @@ export class AuthService {
 
     if (res !== 'expired' && res.status === 200) {
       this._sessionId = undefined
-      this.clearSessionId()
+      this.clearSessionIdFromStorage()
+      this.clearSessionFromStorage()
       this.updateStatus('SESSION_INVALIDATED')
 
       return
@@ -213,8 +275,15 @@ export class AuthService {
     throw new Error('COULD NOT INVALIDATE AUTHENTICATION SESSION')
   }
 
-  finalizeSessionCreation = (): void => {
+  finalizeSessionCreation = async (): Promise<void> => {
     this.saveSessionId()
+    this.fetchSession()
+  }
+
+  private saveSession = (): void => {
+    if (hasSessionStorage() && this._session) {
+      sessionStorage.setItem('session', JSON.stringify(this._session))
+    }
   }
 
   private saveTempSessionId = (): void => {
@@ -223,15 +292,27 @@ export class AuthService {
     }
   }
 
-  private clearSessionId = (): void => {
+  private clearSessionIdFromStorage = (): void => {
     if (hasSessionStorage()) {
       sessionStorage.removeItem('sessionId')
     }
   }
 
+  private clearSessionFromStorage = (): void => {
+    if (hasSessionStorage()) {
+      sessionStorage.removeItem('session')
+    }
+  }
+
+  private clearTokenInfoFromStorage = (): void => {
+    if (hasSessionStorage()) {
+      sessionStorage.removeItem('tokenInfo')
+    }
+  }
+
   private saveSessionId = (): void => {
     if (hasSessionStorage()) {
-      const tempSessionId = AuthService.retrieveTempSessionIdFromSessionStorage()
+      const tempSessionId = AuthService.retrieveTempSessionIdFromStorage()
       if (!tempSessionId) {
         this.updateStatus('SESSION_CREATION_ABORTED')
       }

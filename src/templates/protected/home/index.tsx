@@ -4,7 +4,7 @@ import { navigate } from 'gatsby'
 import {
   AuthService,
   AuthConsumer,
-  useHasValidToken,
+  useAuthStatus,
 } from '../../../services/authentication/deppo-backend'
 import { isClientSide } from '../../../shared/utils'
 
@@ -13,8 +13,8 @@ interface ContentProps {
 }
 
 export const Content: React.FC<ContentProps> = ({ authService }) => {
-  const { createSession, isAuthenticated } = authService
-  const authStatus = useHasValidToken(authService)
+  const { createSession, isAuthenticated, session } = authService
+  const authStatus = useAuthStatus(authService)
   const goToUserDetails = () => navigate('/protected/user-details')
   const handleLogin = async () => {
     await createSession()
@@ -29,30 +29,39 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   if (!authStatus || authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS') {
     return <div>LOADING...</div>
   }
+
   if (authStatus === 'TOKEN_RETRIEVAL_ABORTED') {
     return <div>OOPS, SOMETHING WENT WRONG!</div>
   }
 
-  return isAuthenticated() ? (
-    <section>
-      <h1>Hello !</h1>
-      <button type="button" onClick={goToUserDetails}>
-        User Details
-      </button>
-      <button type="button" onClick={handleLogout}>
-        Log out
-      </button>
-    </section>
-  ) : (
-    <div>
-      <h1>Welcome to the protected area</h1>
+  if (!isAuthenticated()) {
+    return (
       <div>
-        <button type="button" onClick={handleLogin}>
-          Log in
-        </button>
+        <h1>Welcome to the protected area</h1>
+        <div>
+          <button type="button" onClick={handleLogin}>
+            Log in
+          </button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  if (isAuthenticated() && session) {
+    return (
+      <section>
+        <h1>Hello {session.FirstName}!</h1>
+        <button type="button" onClick={goToUserDetails}>
+          User Details
+        </button>
+        <button type="button" onClick={handleLogout}>
+          Log out
+        </button>
+      </section>
+    )
+  }
+
+  return <div>OOPS, SOMETHING WENT WRONG!</div>
 }
 
 interface Props {
