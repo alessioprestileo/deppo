@@ -14,8 +14,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   const authStatus = useAuthStatus(authService)
   const { session } = authService
 
-  if (authStatus === 'SESSION_FETCHING_IN_PROGRESS')
+  if (authStatus === 'SESSION_FETCHING_IN_PROGRESS') {
     return <div>LOADING...</div>
+  }
 
   if (!session) return <div>NO SESSION TO SHOW</div>
 

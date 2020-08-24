@@ -15,7 +15,6 @@ export type Status =
   | 'SESSIONID_RETRIEVAL_SUCESSFUL'
   | 'SESSION_CREATION_SUCCESSFUL'
   | 'SESSION_INVALIDATED'
-  | 'SESSION_RETRIEVAL_SUCESSFUL'
   | 'SESSION_INVALIDATION_ABORTED'
   | 'SESSION_FETCHING_IN_PROGRESS'
   | 'SESSION_FETCHING_SUCCESSFUL'
@@ -42,14 +41,10 @@ export class AuthService {
       if (storedSessionId) {
         this._sessionId = storedSessionId
         this.updateStatus('SESSIONID_RETRIEVAL_SUCESSFUL')
-
-        const storedSession = AuthService.retrieveSessionFromStorage()
-        if (storedSession) {
-          this._session = storedSession
-          this.updateStatus('SESSION_RETRIEVAL_SUCESSFUL')
-
-          return
-        }
+        this.updateStatus('SESSION_FETCHING_IN_PROGRESS')
+        this.fetchSession()
+          .then(() => this.updateStatus('SESSION_FETCHING_SUCCESSFUL'))
+          .catch(() => this.updateStatus('SESSION_FETCHING_ABORTED'))
 
         return
       }
@@ -67,7 +62,6 @@ export class AuthService {
   private clearAllStorage = () => {
     this.clearTokenInfoFromStorage()
     this.clearSessionIdFromStorage()
-    this.clearSessionFromStorage()
   }
 
   private updateStatus = (status: Status): void => {
@@ -92,15 +86,6 @@ export class AuthService {
     const token = body.access_token
     const tokenInfo: TokenInfo = { tokenExpires, token }
     this.saveTokenInfo(tokenInfo)
-  }
-
-  private static retrieveSessionFromStorage = ():
-    | SessionFetchResponse
-    | false
-    | null => {
-    const session = hasSessionStorage() && sessionStorage.getItem('session')
-
-    return session && JSON.parse(session)
   }
 
   private static retrieveSessionIdFromStorage = (): string | false | null => {
@@ -241,7 +226,6 @@ export class AuthService {
 
     const resBody = (await res.json()) as SessionFetchResponse
     this._session = resBody
-    this.saveSession()
     this.updateStatus('SESSION_FETCHING_SUCCESSFUL')
   }
 
@@ -265,7 +249,6 @@ export class AuthService {
     if (res !== 'expired' && res.status === 200) {
       this._sessionId = undefined
       this.clearSessionIdFromStorage()
-      this.clearSessionFromStorage()
       this.updateStatus('SESSION_INVALIDATED')
 
       return
@@ -280,12 +263,6 @@ export class AuthService {
     this.fetchSession()
   }
 
-  private saveSession = (): void => {
-    if (hasSessionStorage() && this._session) {
-      sessionStorage.setItem('session', JSON.stringify(this._session))
-    }
-  }
-
   private saveTempSessionId = (): void => {
     if (hasSessionStorage() && this._sessionId) {
       sessionStorage.setItem('tempSessionId', this._sessionId)
@@ -295,12 +272,6 @@ export class AuthService {
   private clearSessionIdFromStorage = (): void => {
     if (hasSessionStorage()) {
       sessionStorage.removeItem('sessionId')
-    }
-  }
-
-  private clearSessionFromStorage = (): void => {
-    if (hasSessionStorage()) {
-      sessionStorage.removeItem('session')
     }
   }
 
