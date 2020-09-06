@@ -7,12 +7,17 @@ exports.handler = async (event: FnEvent) => {
   const apiKey = getApiKey()
   if (typeof apiKey !== 'string') return apiKey
 
+  const incomingHeaders = event.headers
+
   try {
     const res = await fetch(
       `${process.env.DEPPO_BACKEND_URL}/session/invalidate`,
       {
         method: 'PUT',
-        headers: { ...event.headers, 'api-key': apiKey },
+        headers: {
+          authorization: incomingHeaders.authorization,
+          'api-key': apiKey,
+        },
         body: event.body,
       },
     )
