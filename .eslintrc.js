@@ -28,6 +28,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-inferrable-types': 0,
     'function-paren-newline': 0,
     'implicit-arrow-linebreak': 0,
     'import/extensions': [

@@ -1,4 +1,4 @@
-import { hasSessionStorage, requestWithTimeout } from '../../../shared/utils'
+import { hasSessionStorage, requestWithTimeout } from '../../shared/utils'
 import {
   TokenInfo,
   TokenResponse,

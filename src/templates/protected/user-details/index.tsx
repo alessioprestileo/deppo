@@ -4,7 +4,7 @@ import {
   AuthConsumer,
   AuthService,
   useAuthStatus,
-} from '../../../services/authentication/deppo-backend'
+} from '../../../services/authentication'
 
 interface ContentProps {
   authService: AuthService
@@ -25,9 +25,7 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
       {Object.entries(session).map(([key, value]) => (
         <div key={key}>
           <span>
-            <strong>
-              {key}:{'  '}
-            </strong>
+            <strong>{`${key}:  `}</strong>
           </span>
           <span>
             {typeof value === 'string' ? value : JSON.stringify(value)}

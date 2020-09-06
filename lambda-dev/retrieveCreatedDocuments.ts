@@ -1,19 +1,21 @@
 import fetch from 'node-fetch'
 
+import { getApiKey, extractEncryptedUserId } from './lib/utils'
 import { FnEvent } from './lib/types'
-import { getApiKey } from './lib/utils'
 
 exports.handler = async (event: FnEvent) => {
   const apiKey = getApiKey()
   if (typeof apiKey !== 'string') return apiKey
 
+  const bodyParsed: { userId: string } = JSON.parse(event.body)
+  const encryptedUserId = extractEncryptedUserId(bodyParsed)
+
   try {
     const res = await fetch(
-      `${process.env.DEPPO_BACKEND_URL}/session/invalidate`,
+      `${process.env.DEPPO_BACKEND_URL}/documents/created/${encryptedUserId}`,
       {
-        method: 'PUT',
+        method: 'GET',
         headers: { ...event.headers, 'api-key': apiKey },
-        body: event.body,
       },
     )
     const resBody = await res.json()

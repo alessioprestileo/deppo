@@ -3,4 +3,6 @@ import { RouteComponentProps } from '@reach/router' // this package comes with G
 
 export { RouteComponentProps }
 
-export type Dictionary = Record<string, any>
+export type Dictionary<T = any> = Record<string, T | undefined>
+
+export type BaseResponse = { success: boolean }

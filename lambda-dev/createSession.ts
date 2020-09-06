@@ -8,7 +8,7 @@ exports.handler = async (event: FnEvent) => {
   if (typeof apiKey !== 'string') return apiKey
 
   try {
-    const res = await fetch(`${process.env.DEPPO_BACKEND_URL}/create-session`, {
+    const res = await fetch(`${process.env.DEPPO_BACKEND_URL}/session/create`, {
       method: 'POST',
       headers: { ...event.headers, 'api-key': apiKey },
       body: event.body,

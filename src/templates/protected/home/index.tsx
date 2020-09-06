@@ -5,7 +5,7 @@ import {
   AuthService,
   AuthConsumer,
   useAuthStatus,
-} from '../../../services/authentication/deppo-backend'
+} from '../../../services/authentication'
 import { isClientSide } from '../../../shared/utils'
 
 interface ContentProps {
@@ -16,6 +16,7 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   const { createSession, isAuthenticated, session } = authService
   const authStatus = useAuthStatus(authService)
   const goToUserDetails = () => navigate('/protected/user-details')
+  const goToNewDocument = () => navigate('/protected/create-document')
   const handleLogin = async () => {
     await createSession()
     if (authService.createSessionUrl && isClientSide()) {
@@ -53,6 +54,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
         <h1>Hello {session.FirstName}!</h1>
         <button type="button" onClick={goToUserDetails}>
           User Details
+        </button>
+        <button type="button" onClick={goToNewDocument}>
+          Create Document
         </button>
         <button type="button" onClick={handleLogout}>
           Log out

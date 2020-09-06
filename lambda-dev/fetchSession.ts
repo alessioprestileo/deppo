@@ -9,7 +9,7 @@ exports.handler = async (event: FnEvent) => {
 
   try {
     const res = await fetch(
-      `${process.env.DEPPO_BACKEND_URL}/retrieve-session`,
+      `${process.env.DEPPO_BACKEND_URL}/session/retrieve`,
       {
         method: 'GET',
         headers: { ...event.headers, 'api-key': apiKey },

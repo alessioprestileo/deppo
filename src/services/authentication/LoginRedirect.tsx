@@ -5,7 +5,7 @@ import { parse } from 'query-string'
 
 import { AuthConsumer } from './AuthProvider'
 import { AuthService } from './AuthService'
-import { RouteComponentProps } from '../../../shared/types'
+import { RouteComponentProps } from '../../shared/types'
 
 interface ContentProps extends RouteComponentProps {
   authService: AuthService
