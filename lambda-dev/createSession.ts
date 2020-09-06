@@ -12,7 +12,7 @@ exports.handler = async (event: FnEvent) => {
     const res = await fetch(`${process.env.DEPPO_BACKEND_URL}/session/create`, {
       method: 'POST',
       headers: {
-        Authorization: incomingHeaders.Authorization,
+        authorization: incomingHeaders.authorization,
         'api-key': apiKey,
       },
       body: event.body,
