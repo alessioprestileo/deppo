@@ -6,6 +6,7 @@ import { getApiKey } from './lib/utils'
 exports.handler = async (event: FnEvent) => {
   const apiKey = getApiKey()
   if (typeof apiKey !== 'string') return apiKey
+
   const incomingHeaders = event.headers
 
   try {

@@ -20,13 +20,17 @@ exports.handler = async (event: FnEvent) => {
   payload.externalId = encryptedUserId
   assignSignersIds(payload)
   const body = JSON.stringify({ payload })
+  const incomingHeaders = event.headers
 
   try {
     const res = await fetch(
       `${process.env.DEPPO_BACKEND_URL}/documents/create`,
       {
         method: 'POST',
-        headers: { ...event.headers, 'api-key': apiKey },
+        headers: {
+          authorization: incomingHeaders.authorization,
+          'api-key': apiKey,
+        },
         body,
       },
     )

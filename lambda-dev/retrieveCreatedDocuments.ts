@@ -9,13 +9,17 @@ exports.handler = async (event: FnEvent) => {
 
   const bodyParsed: { userId: string } = JSON.parse(event.body)
   const encryptedUserId = extractEncryptedUserId(bodyParsed)
+  const incomingHeaders = event.headers
 
   try {
     const res = await fetch(
       `${process.env.DEPPO_BACKEND_URL}/documents/created/${encryptedUserId}`,
       {
         method: 'GET',
-        headers: { ...event.headers, 'api-key': apiKey },
+        headers: {
+          authorization: incomingHeaders.authorization,
+          'api-key': apiKey,
+        },
       },
     )
     const resBody = await res.json()
