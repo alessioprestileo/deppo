@@ -42,6 +42,7 @@ module.exports = {
     ],
     'import/prefer-default-export': 0,
     indent: 0,
+    'jsx-a11y/label-has-associated-control': 0,
     'lines-between-class-members': [
       'error',
       'always',
@@ -52,6 +53,7 @@ module.exports = {
     'no-return-assign': ['error', 'except-parens'],
     'no-underscore-dangle': 0,
     'no-unused-vars': 'off',
+    'object-curly-newline': 0,
     'operator-linebreak': 0,
     '@typescript-eslint/no-unused-vars': [
       'error',

@@ -112,6 +112,12 @@ type DocumentBase = {
 
 export type CreateDocumentPayload = DocumentBase
 
+export type CancelDocumentPayload = {
+  documentId: string
+  creatorId: string
+  reason: string
+}
+
 export type Package =
   | 'unsigned'
   | 'native'

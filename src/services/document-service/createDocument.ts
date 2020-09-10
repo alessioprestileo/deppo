@@ -6,16 +6,23 @@ export type CreateDocumentParams = {
   payload: CreateDocumentPayload
 }
 
+type CreateDocumentRes = {
+  success: boolean
+}
+
 export async function createDocument({
   token,
   userId,
   payload,
-}: CreateDocumentParams): Promise<Response> {
+}: CreateDocumentParams): Promise<CreateDocumentRes> {
   const body = JSON.stringify({ userId, payload })
 
-  return fetch('/.netlify/functions/createDocument', {
+  const res = await fetch('/.netlify/functions/createDocument', {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
     body,
   })
+  const parsed: CreateDocumentRes = await res.json()
+
+  return parsed
 }

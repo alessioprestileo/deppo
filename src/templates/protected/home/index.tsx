@@ -16,7 +16,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   const { createSession, isAuthenticated, session } = authService
   const authStatus = useAuthStatus(authService)
   const goToUserDetails = () => navigate('/protected/user-details')
+  const goToDocumentsList = () => navigate('/protected/documents-list')
   const goToNewDocument = () => navigate('/protected/create-document')
+  const goToCancelDocument = () => navigate('/protected/cancel-document')
   const handleLogin = async () => {
     await createSession()
     if (authService.createSessionUrl && isClientSide()) {
@@ -53,10 +55,16 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
       <section>
         <h1>Hello {session.FirstName}!</h1>
         <button type="button" onClick={goToUserDetails}>
-          User Details
+          User details
+        </button>
+        <button type="button" onClick={goToDocumentsList}>
+          List my documents
         </button>
         <button type="button" onClick={goToNewDocument}>
-          Create Document
+          Create document
+        </button>
+        <button type="button" onClick={goToCancelDocument}>
+          Cancel document
         </button>
         <button type="button" onClick={handleLogout}>
           Log out
