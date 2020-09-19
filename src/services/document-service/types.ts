@@ -108,6 +108,15 @@ type DocumentBase = {
       deleteAfterHours: number
     }
   }
+  notification?: {
+    reminder?: {
+      chronSchedule: string
+      maxReminders?: number
+    }
+    finalReceipt?: {
+      includeSignedFile?: true
+    }
+  }
 }
 
 export type CreateDocumentPayload = DocumentBase

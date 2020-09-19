@@ -1,7 +1,7 @@
-import { CreateDocumentPayload } from 'services/document-service'
+import { CreateDocumentPayload } from '../../../services/document-service'
 
-export const newDocument: CreateDocumentPayload = {
-  title: 'Test document',
+export const newDocumentTemplate: CreateDocumentPayload = {
+  title: 'Please sign this document',
   signers: [
     {
       externalSignerId: '',
@@ -50,5 +50,14 @@ export const newDocument: CreateDocumentPayload = {
     url: 'https://idfy.io',
   },
   externalId: '',
-  description: 'This is an important document',
+  description: 'Signature request powered by Deppo',
+  notification: {
+    reminder: {
+      chronSchedule: '0 0 0 ? * * *',
+      maxReminders: 3,
+    },
+    finalReceipt: {
+      includeSignedFile: true,
+    },
+  },
 }

@@ -65,8 +65,8 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
         </button>
       </div>
       {createdDocuments.map((doc) => (
-        <>
-          <div key={doc.documentId}>
+        <React.Fragment key={doc.documentId}>
+          <div>
             {Object.entries(doc).map(([key, value]) => (
               <div key={key}>
                 <span>
@@ -79,7 +79,7 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
             ))}
           </div>
           <br />
-        </>
+        </React.Fragment>
       ))}
     </>
   )
