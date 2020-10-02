@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { BackToDashbooard } from '../../../components'
 import {
   AuthConsumer,
   AuthService,
@@ -23,7 +22,6 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
 
   return (
     <>
-      <BackToDashbooard />
       {Object.entries(session).map(([key, value]) => (
         <div key={key}>
           <span>

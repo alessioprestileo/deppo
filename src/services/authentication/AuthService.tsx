@@ -7,6 +7,7 @@ import {
 } from './types'
 
 export type Status =
+  | 'INITIAL'
   | 'TOKEN_RETRIEVAL_IN_PROGRESS'
   | 'TOKEN_RETRIEVAL_SUCESSFUL'
   | 'TOKEN_RETRIEVAL_ABORTED'
@@ -16,6 +17,7 @@ export type Status =
   | 'SESSION_CREATION_SUCCESSFUL'
   | 'SESSION_INVALIDATED'
   | 'SESSION_INVALIDATION_ABORTED'
+  | 'SESSION_INVALIDATION_IN_PROGRESS'
   | 'SESSION_FETCHING_IN_PROGRESS'
   | 'SESSION_FETCHING_SUCCESSFUL'
   | 'SESSION_FETCHING_ABORTED'
@@ -232,6 +234,7 @@ export class AuthService {
   logout = async (): Promise<void> => {
     if (!this._sessionId) return
 
+    this.updateStatus('SESSION_INVALIDATION_IN_PROGRESS')
     const { token } = await this.getValidToken()
     const reqBody = {
       RequestId: this._sessionId,
@@ -250,6 +253,7 @@ export class AuthService {
       this._sessionId = undefined
       this.clearSessionIdFromStorage()
       this.updateStatus('SESSION_INVALIDATED')
+      this.updateStatus('INITIAL')
 
       return
     }

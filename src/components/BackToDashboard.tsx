@@ -1,7 +1,7 @@
 import React from 'react'
 import { navigate } from 'gatsby'
 
-export const BackToDashbooard = () => {
+export const BackToDashboard: React.FC = () => {
   const handleClick = () => {
     navigate('/protected')
   }

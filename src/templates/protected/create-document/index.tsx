@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BackToDashbooard } from '../../../components'
+import { BackToDashboard } from '../../../components'
 import {
   AuthConsumer,
   AuthService,
@@ -27,7 +27,7 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
 
   return (
     <>
-      <BackToDashbooard />
+      <BackToDashboard />
       <Form token={token} creatorId={userId} />
     </>
   )

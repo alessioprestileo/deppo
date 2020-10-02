@@ -15,21 +15,25 @@ interface ContentProps {
 export const Content: React.FC<ContentProps> = ({ authService }) => {
   const { createSession, isAuthenticated, session } = authService
   const authStatus = useAuthStatus(authService)
-  const goToUserDetails = () => navigate('/protected/user-details')
-  const goToDocumentsList = () => navigate('/protected/documents-list')
-  const goToNewDocument = () => navigate('/protected/create-document')
-  const goToCancelDocument = () => navigate('/protected/cancel-document')
+  const goToHome = () => navigate('/')
+  const goToDashboard = () => navigate('/protected/dashboard')
   const handleLogin = async () => {
     await createSession()
     if (authService.createSessionUrl && isClientSide()) {
       window.location.href = authService.createSessionUrl
     }
   }
-  const handleLogout = () => {
-    authService.logout()
+
+  if (authStatus === 'SESSION_INVALIDATED') {
+    goToHome()
+    return null
   }
 
-  if (!authStatus || authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS') {
+  if (
+    !authStatus ||
+    authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS' ||
+    authStatus === 'SESSION_INVALIDATION_IN_PROGRESS'
+  ) {
     return <div>LOADING...</div>
   }
 
@@ -38,39 +42,13 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   }
 
   if (!isAuthenticated()) {
-    return (
-      <div>
-        <h1>Welcome to the protected area</h1>
-        <div>
-          <button type="button" onClick={handleLogin}>
-            Log in
-          </button>
-        </div>
-      </div>
-    )
+    handleLogin()
+    return null
   }
 
   if (isAuthenticated() && session) {
-    return (
-      <section>
-        <h1>Hello {session.FirstName}!</h1>
-        <button type="button" onClick={goToUserDetails}>
-          User details
-        </button>
-        <button type="button" onClick={goToDocumentsList}>
-          List my documents
-        </button>
-        <button type="button" onClick={goToNewDocument}>
-          Create document
-        </button>
-        <button type="button" onClick={goToCancelDocument}>
-          Cancel document
-        </button>
-        <button type="button" onClick={handleLogout}>
-          Log out
-        </button>
-      </section>
-    )
+    goToDashboard()
+    return null
   }
 
   return <div>OOPS, SOMETHING WENT WRONG!</div>

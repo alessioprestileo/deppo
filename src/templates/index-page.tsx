@@ -1,9 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
-import { MarkdownWidget } from '../components/markdown-widget/MarkdownWidget'
-import { Layout } from '../components/Layout'
-import { VideoPlayer } from '../components/VideoPlayer'
+import { MarkdownWidget, Layout, VideoPlayer } from '../components'
 import { IndexPageTemplateQuery } from '../../graphql-types'
 
 export const pageQuery = graphql`

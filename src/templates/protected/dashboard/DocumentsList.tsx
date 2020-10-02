@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import { BackToDashbooard } from '../../../components'
 import {
   AuthConsumer,
   AuthService,
@@ -54,7 +53,6 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
 
   return (
     <>
-      <BackToDashbooard />
       <div>
         <div>
           <strong>All the documents you created:</strong>
@@ -84,14 +82,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
     </>
   )
 }
-interface Props {
-  path?: '/documents-list'
-}
 
-const CreateDocument: React.FC<Props> = () => (
+export const DocumentsList: React.FC = () => (
   <AuthConsumer>
     {(authService) => <Content authService={authService} />}
   </AuthConsumer>
 )
-
-export default CreateDocument
