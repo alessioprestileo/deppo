@@ -5,11 +5,26 @@ export const newDocumentTemplate: CreateDocumentPayload = {
   signers: [
     {
       externalSignerId: '',
+      authentication: {
+        mechanism: 'eid',
+        socialSecurityNumber: '09026233906',
+      },
+      notifications: {
+        setup: {
+          request: 'sendEmail',
+          reminder: 'sendEmail',
+          signatureReceipt: 'sendEmail',
+          finalReceipt: 'sendEmail',
+          canceled: 'sendEmail',
+          expired: 'sendEmail',
+        },
+      },
       redirectSettings: {
         redirectMode: 'donot_redirect',
       },
       signatureType: {
         mechanism: 'pkisignature',
+        signatureMethods: ['no_bankid_netcentric'],
       },
       ui: {
         language: 'EN',
@@ -18,16 +33,16 @@ export const newDocumentTemplate: CreateDocumentPayload = {
             useCheckBox: false,
             title: 'Info',
             message:
-              'Please read the contract on the next pages carefully. Pay some extra attention to paragraph 5.',
+              'Please read the contract on the next pages carefully. Cheers by Deppo.',
           },
         },
         styling: {
-          colorTheme: 'Pink',
+          colorTheme: 'Neutral',
           spinner: 'Cubes',
         },
       },
       order: 0,
-      required: false,
+      required: true,
       getSocialSecurityNumber: false,
       signerInfo: {
         email: 'alessioprestileo@gmail.com',
@@ -43,7 +58,7 @@ export const newDocumentTemplate: CreateDocumentPayload = {
     description: 'Document description',
     base64Content: 'VGhpcyB0ZXh0IGNhbiBzYWZlbHkgYmUgc2lnbmVk',
     fileName: 'sample.txt',
-    convertToPDF: false,
+    convertToPDF: true,
   },
   contactDetails: {
     email: 'test@test.com',

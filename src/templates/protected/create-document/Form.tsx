@@ -41,7 +41,7 @@ export const Form = ({ creatorId, token }: Props) => {
     payload.signers[0].signerInfo.email = email
     const res = await createDocument({ token, userId: creatorId, payload })
     if (res.success) {
-      navigate('/protected/documents-list')
+      navigate('/protected/dashboard')
     }
   }
 

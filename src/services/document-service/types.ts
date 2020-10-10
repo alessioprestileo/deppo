@@ -1,7 +1,23 @@
 import { Dictionary } from '../../shared/types'
 
+type NotificationsSetupOption = 'off' | 'sendSms' | 'sendEmail' | 'sendBoth'
+
 export type Signer = {
   externalSignerId: string
+  authentication: {
+    mechanism: 'off' | 'eid' | 'smsOtp' | 'eidAndSmsOtp'
+    socialSecurityNumber?: string
+  }
+  notifications: {
+    setup: {
+      request: NotificationsSetupOption
+      reminder: NotificationsSetupOption
+      signatureReceipt: NotificationsSetupOption
+      finalReceipt: NotificationsSetupOption
+      canceled: NotificationsSetupOption
+      expired: NotificationsSetupOption
+    }
+  }
   redirectSettings: {
     redirectMode:
       | 'donot_redirect'
@@ -16,7 +32,7 @@ export type Signer = {
       | 'identification'
       | 'handwritten'
       | 'handwritten_with_identification'
-    signatureMethods?:
+    signatureMethods: (
       | 'no_bankid_mobile'
       | 'no_bankid_netcentric'
       | 'no_buypass'
@@ -27,6 +43,7 @@ export type Signer = {
       | 'fi_eid'
       | 'sms_otp'
       | 'unknown'
+    )[]
   }
   signerInfo: {
     email: string

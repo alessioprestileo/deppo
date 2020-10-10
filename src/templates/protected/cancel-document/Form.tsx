@@ -20,7 +20,7 @@ export const Form = ({ creatorId, token }: Props) => {
     const payload = { creatorId, documentId, reason }
     const res = await cancelDocument({ token, payload })
     if (res.success) {
-      navigate('/protected/documents-list')
+      navigate('/protected/dashboard')
     }
   }
 
