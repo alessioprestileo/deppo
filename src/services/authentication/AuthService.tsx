@@ -1,4 +1,4 @@
-import { hasSessionStorage, requestWithTimeout } from '../../shared/utils'
+import { hasLocalStorage, requestWithTimeout } from '../../shared/utils'
 import {
   TokenInfo,
   TokenResponse,
@@ -91,7 +91,7 @@ export class AuthService {
   }
 
   private static retrieveSessionIdFromStorage = (): string | false | null => {
-    const sessionId = hasSessionStorage() && sessionStorage.getItem('sessionId')
+    const sessionId = hasLocalStorage() && localStorage.getItem('sessionId')
 
     return sessionId
   }
@@ -101,14 +101,14 @@ export class AuthService {
     | false
     | null => {
     const tempSessionId =
-      hasSessionStorage() && sessionStorage.getItem('tempSessionId')
+      hasLocalStorage() && localStorage.getItem('tempSessionId')
 
     return tempSessionId
   }
 
   private static retrieveTokenInfoFromStorage = (): TokenInfo | false => {
-    const tokenInfoString = hasSessionStorage()
-      ? sessionStorage.getItem('tokenInfo')
+    const tokenInfoString = hasLocalStorage()
+      ? localStorage.getItem('tokenInfo')
       : undefined
     const tokenInfo: TokenInfo | false =
       tokenInfoString && JSON.parse(tokenInfoString)
@@ -118,8 +118,8 @@ export class AuthService {
 
   private saveTokenInfo = (tokenInfo: TokenInfo): void => {
     this._tokenInfo = tokenInfo
-    if (hasSessionStorage()) {
-      sessionStorage.setItem('tokenInfo', JSON.stringify(tokenInfo))
+    if (hasLocalStorage()) {
+      localStorage.setItem('tokenInfo', JSON.stringify(tokenInfo))
     }
   }
 
@@ -268,33 +268,33 @@ export class AuthService {
   }
 
   private saveTempSessionId = (): void => {
-    if (hasSessionStorage() && this._sessionId) {
-      sessionStorage.setItem('tempSessionId', this._sessionId)
+    if (hasLocalStorage() && this._sessionId) {
+      localStorage.setItem('tempSessionId', this._sessionId)
     }
   }
 
   private clearSessionIdFromStorage = (): void => {
-    if (hasSessionStorage()) {
-      sessionStorage.removeItem('sessionId')
+    if (hasLocalStorage()) {
+      localStorage.removeItem('sessionId')
     }
   }
 
   private clearTokenInfoFromStorage = (): void => {
-    if (hasSessionStorage()) {
-      sessionStorage.removeItem('tokenInfo')
+    if (hasLocalStorage()) {
+      localStorage.removeItem('tokenInfo')
     }
   }
 
   private saveSessionId = (): void => {
-    if (hasSessionStorage()) {
+    if (hasLocalStorage()) {
       const tempSessionId = AuthService.retrieveTempSessionIdFromStorage()
       if (!tempSessionId) {
         this.updateStatus('SESSION_CREATION_ABORTED')
       }
 
       this._sessionId = tempSessionId as string
-      sessionStorage.setItem('sessionId', tempSessionId as string)
-      sessionStorage.removeItem('tempSessionId')
+      localStorage.setItem('sessionId', tempSessionId as string)
+      localStorage.removeItem('tempSessionId')
     }
     this.updateStatus('SESSION_CREATION_SUCCESSFUL')
   }

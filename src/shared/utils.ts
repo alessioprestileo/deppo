@@ -1,7 +1,7 @@
 export const isClientSide = (): boolean => typeof window !== 'undefined'
 
-export const hasSessionStorage = (): boolean =>
-  typeof sessionStorage !== 'undefined'
+export const hasLocalStorage = (): boolean =>
+  typeof localStorage !== 'undefined'
 
 function waitNMilliseconds<T>(time: number, fn: () => T): Promise<T> {
   return new Promise((resolve) => {
