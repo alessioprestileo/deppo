@@ -1,11 +1,7 @@
 import React from 'react'
 
 import { BackToDashboard } from '../../../components'
-import {
-  AuthConsumer,
-  AuthService,
-  useAuthStatus,
-} from '../../../services/authentication'
+import { AuthConsumer, AuthService } from '../../../services/authentication'
 import { Form } from './Form'
 
 interface ContentProps {
@@ -13,15 +9,11 @@ interface ContentProps {
 }
 
 export const Content: React.FC<ContentProps> = ({ authService }) => {
-  const authStatus = useAuthStatus(authService)
   const { session, tokenInfo } = authService
   const token = tokenInfo?.token
 
-  if (authStatus === 'SESSION_FETCHING_IN_PROGRESS') {
-    return <div>LOADING...</div>
-  }
-
-  if (!session || !token) return <div>OOPS, SOMETHING WENT WRONG</div>
+  if (!session || !token)
+    throw new Error('ERROR WHILE RENDERING CancelDocument COMPONENT')
 
   const creatorId = session.SocialSecurityNumber
 
@@ -43,10 +35,10 @@ interface Props {
   path?: '/cancel-document'
 }
 
-const CreateDocument: React.FC<Props> = () => (
+const CancelDocument: React.FC<Props> = () => (
   <AuthConsumer>
     {(authService) => <Content authService={authService} />}
   </AuthConsumer>
 )
 
-export default CreateDocument
+export default CancelDocument

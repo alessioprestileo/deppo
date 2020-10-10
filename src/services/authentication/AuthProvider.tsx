@@ -1,7 +1,7 @@
 import React from 'react'
-import { AuthService } from './AuthService'
+import { AuthService } from './auth-service/AuthService'
 
-const authService = new AuthService()
+const authService = AuthService.getInstance()
 const AuthContext = React.createContext<AuthService>(authService)
 
 export const AuthConsumer = AuthContext.Consumer

@@ -13,32 +13,14 @@ interface ContentProps {
 }
 
 export const Content: React.FC<ContentProps> = ({ authService }) => {
-  const { createSession, isAuthenticated, session } = authService
-  const authStatus = useAuthStatus(authService)
-  const goToHome = () => navigate('/')
+  const { createSession, isAuthenticated, isInProgress, session } = authService
+  useAuthStatus(authService)
   const goToDashboard = () => navigate('/protected/dashboard')
   const handleLogin = async () => {
     await createSession()
     if (authService.createSessionUrl && isClientSide()) {
       window.location.href = authService.createSessionUrl
     }
-  }
-
-  if (authStatus === 'SESSION_INVALIDATED') {
-    goToHome()
-    return null
-  }
-
-  if (
-    !authStatus ||
-    authStatus === 'TOKEN_RETRIEVAL_IN_PROGRESS' ||
-    authStatus === 'SESSION_INVALIDATION_IN_PROGRESS'
-  ) {
-    return <div>LOADING...</div>
-  }
-
-  if (authStatus === 'TOKEN_RETRIEVAL_ABORTED') {
-    return <div>OOPS, SOMETHING WENT WRONG!</div>
   }
 
   if (!isAuthenticated()) {
@@ -51,7 +33,11 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
     return null
   }
 
-  return <div>OOPS, SOMETHING WENT WRONG!</div>
+  if (isInProgress()) {
+    return <div>LOADING...</div>
+  }
+
+  throw new Error('ERROR WHILE RENDERING Home COMPONENT')
 }
 
 interface Props {

@@ -28,7 +28,7 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
     )
   }
 
-  return <div>OOPS, SOMETHING WENT WRONG!</div>
+  throw new Error('ERROR WHILE RENDERING Dashboard COMPONENT')
 }
 
 interface Props {

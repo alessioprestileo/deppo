@@ -1,10 +1,10 @@
 import React from 'react'
+import { navigate } from 'gatsby'
 
 import { AuthConsumer } from './AuthProvider'
-import Home from '../../templates/protected/home'
 import { RouteComponentProps } from '../../shared/types'
 import { useAuthStatus } from './useAuthStatus'
-import { AuthService } from './AuthService'
+import { AuthService } from './auth-service/AuthService'
 
 interface ContentProps extends Props {
   authService: AuthService
@@ -16,18 +16,23 @@ const Content: React.FC<ContentProps> = ({
   component: Component,
   ...otherProps
 }) => {
-  const { isAuthenticated } = authService
+  const { isAuthenticated, isInProgress } = authService
   const authStatus = useAuthStatus(authService)
-  if (isAuthenticated()) {
-    return <Component {...otherProps} />
+  const goToHome = () => navigate('/')
+  if (authStatus === 'SESSION_INVALIDATED') {
+    goToHome()
+    return null
   }
-  if (!isAuthenticated() && authStatus === 'SESSION_CREATION_IN_PROGRESS') {
+
+  if (isInProgress() || authStatus === 'INITIAL') {
     return <div>LOADING...</div>
   }
-  if (!isAuthenticated() && authStatus === 'SESSION_CREATION_ABORTED') {
-    return <div>ERROR !</div>
+
+  if (!isAuthenticated() || authStatus === 'SESSION_CREATION_ABORTED') {
+    throw new Error('ERROR WHILE RENDERING PrivateRoute COMPONENT')
   }
-  return <Home />
+
+  return <Component {...otherProps} />
 }
 
 interface Props extends RouteComponentProps {

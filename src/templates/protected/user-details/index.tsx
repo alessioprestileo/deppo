@@ -1,24 +1,15 @@
 import React from 'react'
 
-import {
-  AuthConsumer,
-  AuthService,
-  useAuthStatus,
-} from '../../../services/authentication'
+import { AuthConsumer, AuthService } from '../../../services/authentication'
 
 interface ContentProps {
   authService: AuthService
 }
 
 export const Content: React.FC<ContentProps> = ({ authService }) => {
-  const authStatus = useAuthStatus(authService)
   const { session } = authService
 
-  if (authStatus === 'SESSION_FETCHING_IN_PROGRESS') {
-    return <div>LOADING...</div>
-  }
-
-  if (!session) return <div>NO SESSION TO SHOW</div>
+  if (!session) throw new Error('ERROR WHILE RENDERING UserDetails COMPONENT')
 
   return (
     <>
@@ -39,10 +30,10 @@ interface Props {
   path?: '/user-details'
 }
 
-const Home: React.FC<Props> = () => (
+const UserDetails: React.FC<Props> = () => (
   <AuthConsumer>
     {(authService) => <Content authService={authService} />}
   </AuthConsumer>
 )
 
-export default Home
+export default UserDetails

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { AuthService, Status } from './AuthService'
+import { AuthService, Status } from './auth-service/AuthService'
 
 export const useAuthStatus = (authService: AuthService): Status => {
   const {

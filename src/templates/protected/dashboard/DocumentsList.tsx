@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import {
-  AuthConsumer,
-  AuthService,
-  useAuthStatus,
-} from '../../../services/authentication'
+import { AuthConsumer, AuthService } from '../../../services/authentication'
 import {
   retrieveCreatedDocuments,
   RetrieveDocumentPayload,
@@ -28,7 +24,6 @@ const useFetchCreatedDocuments = () => {
 }
 
 export const Content: React.FC<ContentProps> = ({ authService }) => {
-  const authStatus = useAuthStatus(authService)
   const { session, tokenInfo } = authService
   const token = tokenInfo?.token
   const { fetchCreatedDocuments, createdDocuments } = useFetchCreatedDocuments()
@@ -40,11 +35,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
     }
   }, [token, session])
 
-  if (authStatus === 'SESSION_FETCHING_IN_PROGRESS') {
-    return <div>LOADING...</div>
+  if (!session || !token) {
+    throw new Error('ERROR WHILE RENDERING DocumentsList COMPONENT')
   }
-
-  if (!session || !token) return <div>OOPS, SOMETHING WENT WRONG</div>
 
   const userId = session.SocialSecurityNumber
   const handleRefreshList = () => {

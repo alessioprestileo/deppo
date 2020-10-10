@@ -4,7 +4,7 @@ import { navigate } from 'gatsby'
 import { parse } from 'query-string'
 
 import { AuthConsumer } from './AuthProvider'
-import { AuthService } from './AuthService'
+import { AuthService } from './auth-service/AuthService'
 import { RouteComponentProps } from '../../shared/types'
 
 interface ContentProps extends RouteComponentProps {
@@ -14,7 +14,7 @@ interface ContentProps extends RouteComponentProps {
 const Content: React.FC<ContentProps> = ({ authService, location }) => {
   const searchString = location?.search
   if (!searchString) {
-    return <div>OOPS, SOMETHING WENT WRONG!</div>
+    throw new Error('ERROR WHILE RENDERING LoginRedirect COMPONENT')
   }
 
   const queryParams = parse(searchString)
