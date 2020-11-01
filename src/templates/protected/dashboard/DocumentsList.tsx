@@ -16,7 +16,7 @@ const useFetchCreatedDocuments = () => {
   >([])
   const fetchCreatedDocuments = async (token: string, userId: string) => {
     const res = await retrieveCreatedDocuments({ token, userId })
-    const { documents } = await res.json()
+    const { documents } = await res.data
     setCreatedDocuments(documents)
   }
 

@@ -1,3 +1,5 @@
+import axios, { AxiosPromise } from 'axios'
+
 import { requestWithTimeout } from '../../../shared/utils'
 import { SessionCreateResponse } from '../types'
 import { AuthManager } from './AuthManager'
@@ -71,13 +73,14 @@ export class AuthService {
     const reqBody = {
       destination: destinationAfterSuccess,
     }
-    const res = await requestWithTimeout(
-      fetch('/.netlify/functions/createSession', {
+    const res = await requestWithTimeout<AxiosPromise<SessionCreateResponse>>(
+      axios({
+        url: '/.netlify/functions/createSession',
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(reqBody),
+        data: reqBody,
       }),
     )
 
@@ -86,7 +89,7 @@ export class AuthService {
       throw new Error('COULD NOT CREATE AUTHENTICATION SESSION')
     }
 
-    const resBody = (await res.json()) as SessionCreateResponse
+    const resBody = res.data
     this.authManager.updateStatus('SESSION_CREATION_IN_PROGRESS')
     this.authManager.sessionManager.sessionId = resBody.RequestId
     this.authManager.sessionManager.saveTempSessionId()
@@ -103,12 +106,13 @@ export class AuthService {
       RequestId: sessionId,
     }
     const res = await requestWithTimeout(
-      fetch('/.netlify/functions/invalidateSession', {
+      axios({
+        url: '/.netlify/functions/invalidateSession',
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(reqBody),
+        data: reqBody,
       }),
     )
 

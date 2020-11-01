@@ -1,3 +1,5 @@
+import { AxiosPromise } from 'axios'
+
 export const isClientSide = (): boolean => typeof window !== 'undefined'
 
 export const hasLocalStorage = (): boolean =>
@@ -9,7 +11,7 @@ function waitNMilliseconds<T>(time: number, fn: () => T): Promise<T> {
   })
 }
 
-export const requestWithTimeout = (
-  req: Promise<Response>,
-): Promise<Response | 'expired'> =>
+export const requestWithTimeout = <T extends AxiosPromise<any>>(
+  req: T,
+): Promise<'expired' | (T extends PromiseLike<infer U> ? U : T)> =>
   Promise.race([req, waitNMilliseconds(5000, () => 'expired' as const)])

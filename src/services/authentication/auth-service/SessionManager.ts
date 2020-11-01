@@ -1,3 +1,5 @@
+import axios, { AxiosPromise } from 'axios'
+
 import { hasLocalStorage, requestWithTimeout } from '../../../shared/utils'
 import { SessionCreateResponse, SessionFetchResponse } from '../types'
 import { AuthManager } from './AuthManager'
@@ -42,8 +44,9 @@ export class SessionManager {
     }
 
     this.master.updateStatus('SESSION_FETCHING_IN_PROGRESS')
-    const res = await requestWithTimeout(
-      fetch('/.netlify/functions/fetchSession', {
+    const res = await requestWithTimeout<AxiosPromise<SessionFetchResponse>>(
+      axios({
+        url: '/.netlify/functions/fetchSession',
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -57,7 +60,7 @@ export class SessionManager {
       throw new Error('COULD NOT FETCH SESSION')
     }
 
-    const resBody = (await res.json()) as SessionFetchResponse
+    const resBody = res.data
     this._session = resBody
     this.master.updateStatus('SESSION_FETCHING_SUCCESSFUL')
   }
@@ -86,13 +89,14 @@ export class SessionManager {
     const reqBody = {
       destination: destinationAfterSuccess,
     }
-    const res = await requestWithTimeout(
-      fetch('/.netlify/functions/createSession', {
+    const res = await requestWithTimeout<AxiosPromise<SessionCreateResponse>>(
+      axios({
+        url: '/.netlify/functions/createSession',
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(reqBody),
+        data: reqBody,
       }),
     )
 
@@ -101,7 +105,7 @@ export class SessionManager {
       throw new Error('COULD NOT CREATE AUTHENTICATION SESSION')
     }
 
-    const resBody = (await res.json()) as SessionCreateResponse
+    const resBody = res.data
     this.master.updateStatus('SESSION_CREATION_IN_PROGRESS')
     this.sessionId = resBody.RequestId
     this.saveTempSessionId()

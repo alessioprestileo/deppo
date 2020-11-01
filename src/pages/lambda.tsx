@@ -1,12 +1,13 @@
+import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 
 const Lambda: React.FC = () => {
   const [data, setData] = useState()
   const fetchData = async () => {
-    const response = await fetch('/.netlify/functions/hello')
-    const parsed = await response.json()
+    const response = await axios.get('/.netlify/functions/hello')
 
-    setData(parsed)
+    setData(response.data)
   }
   useEffect(() => {
     fetchData()

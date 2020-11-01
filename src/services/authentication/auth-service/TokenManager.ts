@@ -1,3 +1,5 @@
+import axios, { AxiosPromise } from 'axios'
+
 import { hasLocalStorage, requestWithTimeout } from '../../../shared/utils'
 import { TokenInfo, TokenResponse } from '../types'
 import { AuthManager } from './AuthManager'
@@ -23,10 +25,8 @@ export class TokenManager {
   }
 
   private fetchToken = async (): Promise<void> => {
-    const res = await requestWithTimeout(
-      fetch('/.netlify/functions/fetchToken', {
-        method: 'GET',
-      }),
+    const res = await requestWithTimeout<AxiosPromise<TokenResponse>>(
+      axios({ url: '/.netlify/functions/fetchToken', method: 'GET' }),
     )
 
     if (res === 'expired') {
@@ -34,7 +34,7 @@ export class TokenManager {
       throw new Error('COULD NOT INITIALIZE AuthService')
     }
 
-    const body = (await res.json()) as TokenResponse
+    const body = res.data
     const tokenExpires = Date.now() + body.expires_in * 1000
     const token = body.access_token
     const tokenInfo: TokenInfo = { tokenExpires, token }

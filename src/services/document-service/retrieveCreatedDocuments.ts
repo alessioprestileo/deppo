@@ -1,3 +1,5 @@
+import axios, { AxiosResponse } from 'axios'
+
 export type RetrieveAllDocumentsParams = {
   token: string
   userId: string
@@ -6,12 +8,11 @@ export type RetrieveAllDocumentsParams = {
 export async function retrieveCreatedDocuments({
   token,
   userId,
-}: RetrieveAllDocumentsParams): Promise<Response> {
-  const body = JSON.stringify({ userId })
-
-  return fetch('/.netlify/functions/retrieveCreatedDocuments', {
+}: RetrieveAllDocumentsParams): Promise<AxiosResponse<any>> {
+  return axios({
+    url: '/.netlify/functions/retrieveCreatedDocuments',
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
-    body,
+    data: { userId },
   })
 }

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { CancelDocumentPayload } from './types'
 
 export type CancelDocumentParams = {
@@ -13,14 +15,13 @@ export async function cancelDocument({
   token,
   payload,
 }: CancelDocumentParams): Promise<CancelDocumentRes> {
-  const body = JSON.stringify(payload)
-
-  const res = await fetch('/.netlify/functions/cancelDocument', {
+  const res = await axios({
+    url: '/.netlify/functions/cancelDocument',
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
-    body,
+    data: payload,
   })
-  const parsed: CancelDocumentRes = await res.json()
+  const parsed: CancelDocumentRes = res.data
 
   return parsed
 }

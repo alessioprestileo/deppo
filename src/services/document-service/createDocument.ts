@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { CreateDocumentPayload } from './types'
 
 export type CreateDocumentParams = {
@@ -15,14 +17,13 @@ export async function createDocument({
   userId,
   payload,
 }: CreateDocumentParams): Promise<CreateDocumentRes> {
-  const body = JSON.stringify({ userId, payload })
-
-  const res = await fetch('/.netlify/functions/createDocument', {
+  const res = await axios({
+    url: '/.netlify/functions/createDocument',
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
-    body,
+    data: { userId, payload },
   })
-  const parsed: CreateDocumentRes = await res.json()
+  const parsed: CreateDocumentRes = res.data
 
   return parsed
 }

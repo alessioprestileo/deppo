@@ -12,8 +12,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   const { session, tokenInfo } = authService
   const token = tokenInfo?.token
 
-  if (!session || !token)
+  if (!session || !token) {
     throw new Error('ERROR WHILE RENDERING CancelDocument COMPONENT')
+  }
 
   const creatorId = session.SocialSecurityNumber
 
