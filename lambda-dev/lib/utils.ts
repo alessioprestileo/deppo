@@ -1,5 +1,6 @@
 import { EncryptionService } from './EncryptionService'
-import { Res500, CreateDocumentPayload } from './types'
+import { CreateDocumentPayload } from '../../src/shared/types'
+import { Res500 } from './types'
 
 export function getApiKey(): string | Res500 {
   const apiKey = process.env.DEPPO_BACKEND_API_KEY
