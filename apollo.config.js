@@ -3,8 +3,8 @@ module.exports = {
     addTypename: true,
     excludes: [],
     includes: [
-      './src/**/*.tsx',
-      './src/**/*.ts',
+      './src/frontend/**/*.tsx',
+      './src/frontend/**/*.ts',
       './plugins/**/*.js',
       './node_modules/gatsby-source-contentful/src/fragments.js',
       './node_modules/gatsby-source-datocms/fragments/*.js',

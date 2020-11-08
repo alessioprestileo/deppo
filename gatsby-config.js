@@ -39,14 +39,14 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/pages`,
+        path: `${__dirname}/src/frontend/pages`,
         name: 'pages',
       },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/assets/img`,
+        path: `${__dirname}/src/frontend/assets/img`,
         name: 'images',
       },
     },
@@ -83,7 +83,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-netlify-cms',
       options: {
-        modulePath: `${__dirname}/src/cms/cms.js`,
+        modulePath: `${__dirname}/src/frontend/cms/cms.js`,
       },
     },
     {

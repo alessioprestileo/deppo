@@ -35,7 +35,7 @@ exports.createPages = ({ actions, graphql }) => {
       let component = ''
       pageTemplateExtensions.some((ext) => {
         const maybePath = path.resolve(
-          `src/templates/${String(edge.node.frontmatter.templateKey)}.${ext}`,
+          `src/frontend/templates/${String(edge.node.frontmatter.templateKey)}.${ext}`,
         )
         if (fs.existsSync(maybePath)) {
           component = maybePath
