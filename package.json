@@ -67,6 +67,7 @@
     "uuid": "^8.2.0"
   },
   "scripts": {
+    "postinstall": "npm run frontend:postinstall",
     "start": "npm run frontend:start",
     "backend:test": "make test",
     "backend:start": "make run",
