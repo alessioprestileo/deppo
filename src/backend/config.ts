@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import 'dotenv/config' // this package comes with Gatsby
+import 'dotenv-backend/config'
 import { toNumber } from 'lodash'
 
 import { Env } from './util/enum'

@@ -2,15 +2,15 @@ import React from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Router } from '@reach/router' // this package comes with Gatsby
 
-import { Layout } from '../components'
-import PrivateRoute from '../services/authentication/PrivateRoute'
-import LoginRedirect from '../services/authentication/LoginRedirect'
-import Home from '../templates/protected/home'
-import UserDetails from '../templates/protected/user-details'
-import CancelDocument from '../templates/protected/cancel-document'
-import CreateDocument from '../templates/protected/create-document'
-import Dashboard from '../templates/protected/dashboard'
-import Logout from '../templates/protected/logout'
+import { Layout } from '../frontend/components'
+import PrivateRoute from '../frontend/services/authentication/PrivateRoute'
+import LoginRedirect from '../frontend/services/authentication/LoginRedirect'
+import Home from '../frontend/templates/protected/home'
+import UserDetails from '../frontend/templates/protected/user-details'
+import CancelDocument from '../frontend/templates/protected/cancel-document'
+import CreateDocument from '../frontend/templates/protected/create-document'
+import Dashboard from '../frontend/templates/protected/dashboard'
+import Logout from '../frontend/templates/protected/logout'
 import NotFoundPage from './404'
 
 const Protected: React.FC = () => (

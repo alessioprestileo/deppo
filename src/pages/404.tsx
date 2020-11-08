@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { RouteComponentProps } from '../shared/types'
-import { Layout } from '../components'
+import { RouteComponentProps } from '../frontend/shared/types'
+import { Layout } from '../frontend/components'
 
 const NotFoundPage: React.FC<RouteComponentProps> = () => (
   <Layout>
