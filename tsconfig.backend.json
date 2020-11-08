@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": ["es2015", "es2017"],
+    "outDir": "./dist",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/shared/**/*.ts", "src/backend/**/*.ts", "src/backend/**/*.tsx", "test/backend/**/*.ts"],
+  "exclude": ["**/__mocks__", "**/node_modules/*"]
+}

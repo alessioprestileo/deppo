@@ -2,7 +2,6 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
     "jsx": "react",
     "lib": ["dom", "esnext", "es2015", "es2016", "es2017"],
     "moduleResolution": "node",
@@ -17,6 +16,6 @@
     ],
     "target": "es2015"
   },
-  "include": ["custom.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules/*", "public/*"]
+  "include": ["custom.d.ts", "src/frontend/**/*.ts", "src/frontend/**/*.tsx", "lambda-dev/**/*.ts"],
+  "exclude": ["**/node_modules/*", "public/*"]
 }

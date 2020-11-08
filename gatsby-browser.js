@@ -1,1 +1,1 @@
-import './src/globalStyles.sass'
+import './src/frontend/globalStyles.sass'

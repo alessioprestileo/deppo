@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 
-import { FnEvent, CreateDocumentPayload } from './lib/types'
+import { CreateDocumentPayload } from '../src/shared/types'
+import { FnEvent } from './lib/types'
 import {
   getApiKey,
   extractEncryptedUserId,
