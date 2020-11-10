@@ -13,6 +13,7 @@ import {
   retrieveDocumentsToSign,
   handleRetrieveDocument,
   handleCancelDocument,
+  createDeposit,
 } from './controller'
 
 export const routes = (app: FastifyInstance, _opts: any, done: () => void) => {
@@ -75,6 +76,11 @@ export const routes = (app: FastifyInstance, _opts: any, done: () => void) => {
     method: 'POST',
     url: '/documents/cancel',
     handler: handleCancelDocument,
+  })
+  app.route({
+    method: 'POST',
+    url: '/deposits/create',
+    handler: createDeposit,
   })
 
   done()

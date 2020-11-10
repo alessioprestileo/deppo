@@ -9,6 +9,7 @@ import Home from '../frontend/templates/protected/home'
 import UserDetails from '../frontend/templates/protected/user-details'
 import CancelDocument from '../frontend/templates/protected/cancel-document'
 import CreateDocument from '../frontend/templates/protected/create-document'
+import CreateDeposit from '../frontend/templates/protected/create-deposit'
 import Dashboard from '../frontend/templates/protected/dashboard'
 import Logout from '../frontend/templates/protected/logout'
 import NotFoundPage from './404'
@@ -19,6 +20,7 @@ const Protected: React.FC = () => (
       <LoginRedirect path="/login-redirect" />
       <PrivateRoute path="/cancel-document" component={CancelDocument} />
       <PrivateRoute path="/create-document" component={CreateDocument} />
+      <PrivateRoute path="/create-deposit" component={CreateDeposit} />
       <PrivateRoute path="/user-details" component={UserDetails} />
       <PrivateRoute path="/logout" component={Logout} />
       <PrivateRoute path="/dashboard" component={Dashboard} />

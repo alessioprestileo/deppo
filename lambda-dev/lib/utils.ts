@@ -1,5 +1,8 @@
 import { EncryptionService } from './EncryptionService'
-import { CreateDocumentPayload } from '../../src/shared/types'
+import {
+  CreateDepositPayload,
+  CreateDocumentPayload,
+} from '../../src/shared/types'
 import { Res500 } from './types'
 
 export function getApiKey(): string | Res500 {
@@ -23,6 +26,17 @@ export function assignSignersIds(
   payload.signers.forEach((item) => {
     // eslint-disable-next-line no-param-reassign
     item.externalSignerId = EncryptionService.encrypt(item.signerInfo.email)
+  })
+
+  return payload
+}
+
+export function assignTenantsIds(
+  payload: CreateDepositPayload,
+): CreateDepositPayload {
+  payload.tenants.forEach((item) => {
+    // eslint-disable-next-line no-param-reassign
+    item.externalId = EncryptionService.encrypt(item.info.email)
   })
 
   return payload

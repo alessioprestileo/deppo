@@ -1,6 +1,10 @@
+import { Mobile } from './Mobile'
 import { NotificationsSetupOption } from './NotificationsSetupOption'
 import { SignatureMechanism } from './SignatureMechanism'
 import { SignatureMethod } from './SignatureMethod'
+import { UiColorTheme } from './UiColorTheme'
+import { UiLanguage } from './UiLanguage'
+import { UiStylingSpinner } from './UiStylingSpinner'
 
 export type Signer = {
   externalSignerId: string
@@ -32,13 +36,10 @@ export type Signer = {
   }
   signerInfo: {
     email: string
-    mobile: {
-      countryCode: string
-      number: string
-    }
+    mobile: Mobile
   }
   ui: {
-    language?: 'EN' | 'NO' | 'DA' | 'SV' | 'FI'
+    language?: UiLanguage
     dialogs?: {
       before: {
         useCheckBox: boolean
@@ -48,33 +49,8 @@ export type Signer = {
     }
     styling?: {
       backgroundColor?: string
-      colorTheme?:
-        | 'Default'
-        | 'Black'
-        | 'Blue'
-        | 'Cyan'
-        | 'Dark'
-        | 'Lime'
-        | 'Neutral'
-        | 'Pink'
-        | 'Purple'
-        | 'Red'
-        | 'Teal'
-        | 'Indigo'
-        | 'LightBlue'
-        | 'DeepPurple'
-        | 'Green'
-        | 'LightGreen'
-        | 'Yellow'
-        | 'Amber'
-        | 'Orange'
-        | 'DeepOrange'
-        | 'Brown'
-        | 'Gray'
-        | 'BlueGray'
-        | 'OceanGreen'
-        | 'GreenOcean'
-      spinner?: 'Document' | 'Classic' | 'Cubes' | 'Bounce'
+      colorTheme?: UiColorTheme
+      spinner?: UiStylingSpinner
       themeMode?: 'Default' | 'Light' | 'Dark'
       topBar?: 'Default' | 'Visible' | 'OnlyMenu' | 'Hidden'
     }

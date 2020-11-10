@@ -12,6 +12,7 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
   const { isAuthenticated, session } = authService
   const goToNewDocument = () => navigate('/protected/create-document')
   const goToCancelDocument = () => navigate('/protected/cancel-document')
+  const goToNewDeposit = () => navigate('/protected/create-deposit')
 
   if (isAuthenticated() && session) {
     return (
@@ -22,6 +23,9 @@ export const Content: React.FC<ContentProps> = ({ authService }) => {
         </button>
         <button type="button" onClick={goToCancelDocument}>
           Cancel document
+        </button>
+        <button type="button" onClick={goToNewDeposit}>
+          Create deposit
         </button>
         <DocumentsList />
       </section>
